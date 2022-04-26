@@ -1,14 +1,27 @@
-import React, { Component } from 'react'; 
-import LoginButton from './loginButton';
+import React, { Component } from 'react';
 import '../App.css';
+import { Link } from "react-router-dom";
+import { Button } from 'react-bootstrap';
 
 class LoginSelect extends Component {
     render() {
         return(
             <div className='wrapper'>
-                <LoginButton buttonName="Guest Portal"/>
-                <LoginButton buttonName="Manager Portal"/>
-                <LoginButton buttonName="Staff Portal"/>
+                <div >
+                    <Link to="/manager">    
+                        <Button size='lg' variant='outline-primary' >Guest Portal</Button>
+                    </Link>
+                </div>
+                <div >
+                    <Link to="/manager">    
+                        <Button size='lg' variant='outline-primary' >Manager Portal</Button>
+                    </Link>
+                </div>
+                <div >
+                    <Link to="/manager">    
+                        <Button size='lg' variant='outline-primary' >Staff Portal</Button>
+                    </Link>
+                </div>
             </div>
         ); 
     }
