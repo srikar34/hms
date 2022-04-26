@@ -69,9 +69,15 @@
   top: 50%;
   transform: translate(-50%, -50%);
   display: grid;
-  grid-template-columns: 200px;
+  /* grid-template-columns: 200px; */
   row-gap: 10px;
   text-align: center;
   align-items: center;
   
+}
+
+.center{
+  padding: 70px 0;
+  border: 3px solid;
+  text-align: center;
 }
