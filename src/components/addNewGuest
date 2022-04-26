@@ -4,7 +4,7 @@ import ReactStars from "react-rating-stars-component";
 import { Button } from 'react-bootstrap';
 import GuestPortalHeader from "./guestPortalHeader";
 
-class GuestRar extends Component {
+class AddGuest extends Component {
     render(){
         return(
             <div >
@@ -30,4 +30,4 @@ class GuestRar extends Component {
     }
 }
 
-export default GuestRar;
+export default AddGuest;
