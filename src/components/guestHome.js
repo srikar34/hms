@@ -1,15 +1,15 @@
 import React, { Component } from 'react'; 
-import ManagerPortalHeader from './managerPortalHeader';
+import GuestPortalHeader from './guestPortalHeader';
 
-class Manager extends Component {
+class Guest extends Component {
     render(){
         return(
             <div>
-            <ManagerPortalHeader />
+            <GuestPortalHeader />
             <div class="center">Use navigation bar to move across various sections</div>
             </div>
         );
     }
 }
 
-export default Manager;
+export default Guest;
