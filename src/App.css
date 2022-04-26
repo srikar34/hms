@@ -1,5 +1,10 @@
 .App {
+  height: 100%;
   text-align: center;
+  background-image: url("./assets/kamartaj.png");
+  background-position: bottom center;
+  background-size: cover;
+  /* height: 100%; */
 }
 
 .App-logo {
@@ -35,4 +40,38 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.h1 {
+  align-items: center;
+  text-align: center;
+  font-size: 100px;
+  font-weight: bolder;
+}
+
+.h2 {
+  align-items: center;
+  text-align: center;
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.h3 {
+  align-items: center;
+  text-align: center;
+  font-size: 25px;
+  /* font-weight: bold; */
+}
+
+.wrapper {
+  position: absolute; 
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-columns: 200px;
+  row-gap: 10px;
+  text-align: center;
+  align-items: center;
+  
 }
