@@ -82,7 +82,6 @@
   border: 3px solid;
   text-align: center;
 }
-
 .divcenter{
   text-align: center;
   padding: 5px;
@@ -105,25 +104,10 @@
   text-align: center;
 }
 
-.left1{
-  padding: 70px 0;
-  font-family: "Times New Roman", Times, serif;
-  left: 10%;
-  top: 10%;
-  text-align: center;
-  display: inline-block;
-}
-
-.samerow{
-  display: inline-block;
-}
-
-.h1center{
-  text-align: center;
-}
-
-.rectangle {
-  display: inline-block;
-  width: 100px;
-  height: 100px;
+.g-signin{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -50px;
 }
