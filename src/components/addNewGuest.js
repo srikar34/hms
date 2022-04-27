@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { Button } from 'react-bootstrap';
 import { FormGroup,Label,Col,Input,Form } from "reactstrap";
 import ManagerPortalHeader from './managerPortalHeader';
@@ -44,12 +44,16 @@ class Rooms extends Component {
                                             <Input type="text" placeholder="enter number of days"/>
                                         </Col>
                                 </FormGroup>
+                                <FormGroup row>
+                                    <Label id="billforstay" md={2}><b>Bill for Stay</b></Label>
+                                        <Col md={7}>
+                                            <Input type="text" placeholder="enter amount"/>
+                                        </Col>
+                                </FormGroup>
                             </Form>
                             <Button size='m' variant='primary' className="floatright" >Assign Room</Button>
                         </div>
-                        
                     </div>
-                    
             </div>
         ); 
     }

@@ -83,7 +83,6 @@
   text-align: center;
 }
 
-<<<<<<< HEAD
 .divcenter{
   text-align: center;
   padding: 5px;
@@ -96,12 +95,12 @@
 
 .floatcenter{
   float: center;
-=======
+}
+
 .left{
   padding: 70px 0;
   font-family: "Times New Roman", Times, serif;
   left: 10%;
   top: 10%;
   text-align: center;
->>>>>>> 5974f18059e9e55677951d4a2451291df12c96a9
 }

@@ -6,7 +6,7 @@ import ManagerPortalHeader from './managerPortalHeader';
 class Rar extends Component {
     render() {
         return(
-            <div >
+            <div>
                 <ManagerPortalHeader />
                 <br/>
                 <h1>Ratings and Reviews</h1>
