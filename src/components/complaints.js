@@ -42,9 +42,9 @@ class Complaints extends Component {
                 </Table>
                 <br/>
 
-                <div>
+                <div className='floatcenter'>
                     {/* <div> */}
-                            <Button size='lg' variant='outline-primary' >Update Status</Button>
+                            <Button size='lg' variant='primary'  >Update Status</Button>
                     {/* </div> */}
                 </div>
 

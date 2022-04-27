@@ -81,3 +81,17 @@
   border: 3px solid;
   text-align: center;
 }
+
+.divcenter{
+  text-align: center;
+  padding: 5px;
+}
+
+
+.floatright{
+  float: right;
+}
+
+.floatcenter{
+  float: center;
+}

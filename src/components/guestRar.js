@@ -3,6 +3,7 @@ import { Component } from "react";
 import ReactStars from "react-rating-stars-component";
 import { Button } from 'react-bootstrap';
 import GuestPortalHeader from "./guestPortalHeader";
+import '../App.css';
 
 class GuestRar extends Component {
     render(){
@@ -21,7 +22,7 @@ class GuestRar extends Component {
                                     <Input type="textarea" rows="6" placeholder="type your feedback here"/>
                                 </Col>
                             </FormGroup> 
-                            <Button size='m' variant='primary' style={{float:"right"}} >submit</Button>
+                            <Button size='m' variant='primary' className="floatright" >submit</Button>
                         </div>
                     </div>
                 </div>
