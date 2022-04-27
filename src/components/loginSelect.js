@@ -8,7 +8,7 @@ class LoginSelect extends Component {
         return(
             <div className='wrapper'>
                 <div >
-                    <Link to="/guest">    
+                    <Link to="/googlelogin">    
                         <Button size='lg' variant='outline-primary' >Guest Portal</Button>
                     </Link>
                 </div>
@@ -20,7 +20,7 @@ class LoginSelect extends Component {
                 </div>
                 <br/>
                 <div >
-                    <Link to="/staff">    
+                    <Link to="/manager">    
                         <Button size='lg' variant='outline-primary' >Staff Portal</Button>
                     </Link>
                 </div>

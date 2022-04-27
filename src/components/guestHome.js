@@ -3,6 +3,8 @@ import GuestPortalHeader from './guestPortalHeader';
 import { Button } from 'react-bootstrap';
 import { DropdownButton } from 'react-bootstrap';
 import { Dropdown } from 'react-bootstrap';
+import Login from './Login';
+
 
 class Guest extends Component {
     render(){
@@ -47,6 +49,8 @@ class Guest extends Component {
                         Contact Helpline?
                         <Button size='m' variant='outline-primary' >Click here</Button>
                     </div>
+                    <br/>
+                    <Login/>
                 </div>
             </div>
         );

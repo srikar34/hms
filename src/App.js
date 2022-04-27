@@ -15,6 +15,7 @@ import GuestBill from './components/guestBill';
 import GuestRar from './components/guestRar'
 import AddGuest from './components/addNewGuest';
 import Staff from './components/staffHome';
+import Googlelogin from './components/googleLogin';
 
 class App extends Component {
   render(){
@@ -35,6 +36,7 @@ class App extends Component {
             <Route exact path="/guest/bill" element={<GuestBill />} />
             <Route exact path="/guest/rar" element={<GuestRar />} />
             <Route exact path="/staff" element={<Staff />} />
+            <Route exact path="/googlelogin" element={<Googlelogin />} />
             {/* <Route exact path="/" component={MainPage} /> */}
           </Routes>
           {/* <redirect to="/" /> */}
