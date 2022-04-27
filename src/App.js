@@ -12,8 +12,13 @@ import Guest from './components/guestHome';
 import GuestComplaints from './components/guestComplaints';
 import GuestServices from './components/guestServices';
 import GuestBill from './components/guestBill';
+<<<<<<< HEAD
 import GuestRar from './components/guestRar'
 import AddGuest from './components/addNewGuest';
+=======
+import GuestRar from './components/guestRar';
+import Staff from './components/staffHome';
+>>>>>>> 5974f18059e9e55677951d4a2451291df12c96a9
 
 class App extends Component {
   render(){
@@ -33,6 +38,11 @@ class App extends Component {
             <Route exact path="/guest/complaints" element={<GuestComplaints />} />
             <Route exact path="/guest/bill" element={<GuestBill />} />
             <Route exact path="/guest/rar" element={<GuestRar />} />
+<<<<<<< HEAD
+=======
+            <Route exact path="/staff" element={<Staff />} />
+            {/* <Route exact path="/" component={MainPage} /> */}
+>>>>>>> 5974f18059e9e55677951d4a2451291df12c96a9
           </Routes>
           {/* <redirect to="/" /> */}
         </Router>
