@@ -17,7 +17,7 @@ class Rooms extends Component {
                     </div>
                     <br/>
                     <div >
-                        <Link to="/manager">    
+                        <Link to="/manager/rooms/updatestatus">    
                             <Button size='lg' variant='outline-primary' >Update Room status</Button>
                         </Link>
                     </div>

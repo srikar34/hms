@@ -104,3 +104,26 @@
   top: 10%;
   text-align: center;
 }
+
+.left1{
+  padding: 70px 0;
+  font-family: "Times New Roman", Times, serif;
+  left: 10%;
+  top: 10%;
+  text-align: center;
+  display: inline-block;
+}
+
+.samerow{
+  display: inline-block;
+}
+
+.h1center{
+  text-align: center;
+}
+
+.rectangle {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+}

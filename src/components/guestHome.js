@@ -3,6 +3,7 @@ import GuestPortalHeader from './guestPortalHeader';
 import { Button } from 'react-bootstrap';
 import { DropdownButton } from 'react-bootstrap';
 import { Dropdown } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 class Guest extends Component {
     render(){
@@ -23,7 +24,7 @@ class Guest extends Component {
                     </div>
                 </div>
                 <div className='left'>
-                    <div>
+                    <div >
                         Need a Service?
                         <DropdownButton id="dropdown-basic-button" title="Select Service">
                         <Dropdown.Item href="#/action-1">Room Cleaning</Dropdown.Item>
@@ -43,10 +44,9 @@ class Guest extends Component {
                         <Button size='m' variant='outline-primary' >Click here</Button>
                     </div>
                     <br/>
-                    <div>
+                    <Link to='/guest/contact'>
                         Contact Helpline?
-                        <Button size='m' variant='outline-primary' >Click here</Button>
-                    </div>
+                    </Link>
                 </div>
             </div>
         );

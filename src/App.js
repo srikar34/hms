@@ -4,15 +4,19 @@ import { Component } from 'react';
 import MainPage from './components/mainPage';
 import Manager from './components/managerHome';
 import Rooms from './components/rooms';
+import UpdateRoomStatus from './components/updateRoomStatus';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Services from './components/services';
 import Complaints from './components/complaints';
+import ActiveComplaints from './components/activeComplaints';
+import ClosedComplaints from './components/closedComplaints';
 import Rar from './components/rar';
 import Guest from './components/guestHome';
 import GuestComplaints from './components/guestComplaints';
 import GuestServices from './components/guestServices';
 import GuestBill from './components/guestBill';
-import GuestRar from './components/guestRar'
+import GuestRar from './components/guestRar';
+import ContactUs from './components/contactUs';
 import AddGuest from './components/addNewGuest';
 import Staff from './components/staffHome';
 
@@ -26,10 +30,15 @@ class App extends Component {
             <Route exact path="/manager" element={<Manager />} />
             <Route exact path="/manager/rooms" element={<Rooms />} />
             <Route exact path="/manager/rooms/addguest" element={<AddGuest />} />
+            <Route exact path="/manager/rooms/updatestatus" element={<UpdateRoomStatus />} />
             <Route exact path="/manager/services" element={<Services />} />
             <Route exact path="/manager/complaints" element={<Complaints />} />
+            <Route exact path="/manager/complaints/active" element={<ActiveComplaints />} />
+            <Route exact path="/manager/complaints/closed" element={<ClosedComplaints />} />
             <Route exact path="/manager/rar" element={<Rar />} />
             <Route exact path="/guest" element={<Guest />} />
+            <Route exact path="/guest" element={<Guest />} />
+            <Route exact path="/guest/contact" element={<ContactUs />} />
             <Route exact path="/guest/services" element={<GuestServices />} />
             <Route exact path="/guest/complaints" element={<GuestComplaints />} />
             <Route exact path="/guest/bill" element={<GuestBill />} />

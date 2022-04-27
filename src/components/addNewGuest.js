@@ -10,7 +10,7 @@ class Rooms extends Component {
         return(
             <div>
                 <ManagerPortalHeader />
-                <div className="row row-content" style={{marginLeft:'auto'}}>
+                <div className="row row-content"     style={{marginLeft:'auto'}}>
                     <h1 className='divcenter'>Assign Room to Guest</h1>
                         <div className="col-12 col-md-9">
                             <Form>
