@@ -1,14 +1,33 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../App.css';
 import { Button, Table } from 'react-bootstrap';
 import ManagerPortalHeader from './managerPortalHeader';
+import {db} from '../firebase-config';
+import {
+    collection,
+    getDocs,
+    addDoc,
+    updateDoc,
+    deleteDoc,
+    doc,
+  } from "firebase/firestore";
+import { COMPLAINT_STATUS } from '../assets/statusValues';
 
-class ActiveComplaints extends Component {
-    render() {
+function ActiveComplaints(){
+        const [complaints,setComplaints]=useState([]);
+        const complaintsCollectionRef = collection(db, "complaintrecord");
+        useEffect(()=>{
+            const getComplaints = async () =>{
+                const data = await getDocs(complaintsCollectionRef);
+                console.log(data);
+                setComplaints(data.docs.map((doc)=>({...doc.data(),id:doc.id})));
+            };
+            getComplaints();
+        },[]);
         return(
             <div >
                 <ManagerPortalHeader />
-                <h1>Active Complaints</h1>
+                <h1 className='h1center'>Active Complaints</h1>
                 <Table striped bordered hover size="sm">
                     <thead>
                         <tr>
@@ -19,24 +38,16 @@ class ActiveComplaints extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>32</td>
-                        <td>Water leak</td>
-                        </tr>
-                        <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>65</td>
-                        <td>Internet issue</td>
-                        </tr>
-                        <tr>
-                        <td>3</td>
-                        <td>Larry the Bird</td>
-                        <td>76</td>
-                        <td>Internet issue</td>
-                        </tr>
+                    {complaints.map((complaint) =>
+                        (
+                            // const status = complaint.status;
+                            <tr hidden={!(complaint.status==COMPLAINT_STATUS.ACTIVE)}>
+                            <th>{complaint.from_room}</th>
+                            <th>{complaint.from_email}</th>
+                            <th>{complaint.complaint_id}</th>
+                            <th>{complaint.description}</th>
+                            </tr>
+                    ))}
                     </tbody>
                 </Table>
                 <br/>
@@ -48,7 +59,6 @@ class ActiveComplaints extends Component {
                 <br/>
             </div>
         ); 
-    }
 }
 
 export default ActiveComplaints;

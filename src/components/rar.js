@@ -1,10 +1,28 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../App.css';
 import {Table } from 'react-bootstrap';
 import ManagerPortalHeader from './managerPortalHeader';
+import {db} from '../firebase-config';
+import {
+    collection,
+    getDocs,
+    addDoc,
+    updateDoc,
+    deleteDoc,
+    doc,
+  } from "firebase/firestore";
 
-class Rar extends Component {
-    render() {
+function Rar(){
+        const [ratings,setRatings]=useState([]);
+        const ratingsCollectionRef = collection(db, "ratings");
+        useEffect(()=>{
+            const getRatings = async () =>{
+                const data = await getDocs(ratingsCollectionRef);
+                console.log(data);
+                setRatings(data.docs.map((doc)=>({...doc.data(),id:doc.id})));
+            };
+            getRatings();
+        },[]);
         return(
             <div>
                 <ManagerPortalHeader />
@@ -14,32 +32,29 @@ class Rar extends Component {
                     <thead>
                         <tr>
                         <th>Guest Name</th>
+                        <th>Room Number</th>
                         <th>Rating</th>
                         <th>Review</th>
+                        <th>Reply from Hotel</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                        <td>Mark</td>
-                        <td>4/5</td>
-                        <td>Great Stay</td>
-                        </tr>
-                        <tr>
-                        <td>Jacob</td>
-                        <td>3.5/5</td>
-                        <td>@fat</td>
-                        </tr>
-                        <tr>
-                        <td>Larry the Bird</td>
-                        <td>5/5</td>
-                        <td>Good staff</td>
-                        </tr>
+                    {ratings.map((rating) =>
+                        (
+                            // const status = rating.status;
+                            <tr>
+                            <th>{rating.name}</th>
+                            <th>{rating.from_room}</th>
+                            <th>{rating.rating}</th>
+                            <th>{rating.review}</th>
+                            <th>{rating.reply}</th>
+                            </tr>
+                    ))}
                     </tbody>
                 </Table>
                 <br/>
             </div>
         ); 
-    }
 }
 
 export default Rar;

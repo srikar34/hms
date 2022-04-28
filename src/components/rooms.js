@@ -23,7 +23,7 @@ class Rooms extends Component {
                     </div>
                     <br/>
                     <div >
-                        <Link to="/manager">    
+                        <Link to="/manager/rooms/checkallroomdetails">    
                             <Button size='lg' variant='outline-primary' >Check all room details</Button>
                         </Link>
                     </div>
