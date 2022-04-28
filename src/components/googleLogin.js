@@ -1,7 +1,7 @@
 import React, {Component }  from 'react';
-import ReactDOM from 'react-dom';
 import Login from './Login';
 import '../App.css';
+
 
 class Googlelogin extends Component {
     render(){

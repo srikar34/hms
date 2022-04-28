@@ -1,7 +1,7 @@
-export const ROOM_STATUS = {
-    UNDER_MAINTENANCE : "under maintenance",
-    AVAILABLE : "available",
-    OCCUPIED : "occupied",
-    RESERVED : "reserved"
+export const ROOM_STATUS ={
+    UNDER_MAINTENANCE : "UNDER MAINTENANCE",
+    AVAILABLE : "AVAILABLE",
+    OCCUPIED : "OCCUPIED",
+    RESERVED : "RESERVED"
 };
 
