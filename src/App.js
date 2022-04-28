@@ -23,7 +23,6 @@ import StaffProfile from './components/staffProfile';
 
 import ContactUs from './components/contactUs';
 import AddGuest from './components/addNewGuest';
-import Googlelogin from './components/googleLogin';
 
 class App extends Component {
   render(){
@@ -52,7 +51,6 @@ class App extends Component {
             <Route exact path="/guest/profile" element={<GuestProfile />} />
             <Route exact path="/staff" element={<Staff />} />
             <Route exact path="/staff/profile" element={<StaffProfile />} />
-            <Route exact path="/googlelogin" element={<Googlelogin />} />
             {/* <Route exact path="/" component={MainPage} /> */}
           </Routes>
           {/* <redirect to="/" /> */}
