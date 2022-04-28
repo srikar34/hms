@@ -41,11 +41,9 @@
   }
 }
 
-.h1 {
+.h1center {
   align-items: center;
   text-align: center;
-  font-size: 100px;
-  font-weight: bolder;
 }
 
 .h2 {
