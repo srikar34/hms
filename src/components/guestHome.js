@@ -4,6 +4,8 @@ import { Button } from 'react-bootstrap';
 import { DropdownButton } from 'react-bootstrap';
 import { Dropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import Login from './login';
+
 
 class Guest extends Component {
     render(){
@@ -47,6 +49,7 @@ class Guest extends Component {
                     <Link to='/guest/contact'>
                         Contact Helpline?
                     </Link>
+                    <Login/>
                 </div>
             </div>
         );
