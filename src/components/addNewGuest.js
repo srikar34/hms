@@ -4,9 +4,34 @@ import '../App.css';
 import { Button } from 'react-bootstrap';
 import { FormGroup,Label,Col,Input,Form } from "reactstrap";
 import ManagerPortalHeader from './managerPortalHeader';
+import { useState } from 'react';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../firebase-config';
 
-class Rooms extends Component {
-    render() {
+
+function Rooms(){
+//class Rooms extends Component {
+    const [name,setName] = useState(null);
+    const [email,setEmail] = useState(null);
+    const [roomNo,setRoomNo] = useState(null);
+    const [noOfGuests,setGuests] = useState(null);
+    const [bill,setBill] = useState(null);
+    const [noOfDays,setDays] = useState(null);
+
+    const usersCollectionRef = collection(db, "users");
+    const roomsCollectionRef = collection(db, "roomrecord");
+    const createNewGuest = async() => {
+        await addDoc(usersCollectionRef, {email_id: email, name:name, no_of_guests:noOfGuests, room_number:roomNo});
+    }
+    const createNewRoomRecord = async() => {
+        await addDoc(roomsCollectionRef, {email_id: email, name:name, num_guests:noOfGuests, room_number:roomNo, status:"Occupied"});
+    }
+    const addNewGuest = () => {
+        createNewGuest();
+        createNewRoomRecord();
+    }
+
+
         return(
             <div>
                 <ManagerPortalHeader />
@@ -17,46 +42,46 @@ class Rooms extends Component {
                                 <FormGroup row>
                                     <Label id="guestname" md={2}><b>Guest Name</b></Label>
                                         <Col md={7}>
-                                            <Input type="text" placeholder="enter name"/>
+                                            <Input value={name} type="text" placeholder="enter name" onChange={(e) => {setName(e.target.value)}}/>
                                         </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                     <Label id="email" md={2}><b>Guest Email</b></Label>
                                         <Col md={7}>
-                                            <Input type="text" placeholder="enter email-id"/>
+                                            <Input value={email} type="text" placeholder="enter email-id" onChange={(e) => {setEmail(e.target.value)}}/>
                                         </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Label id="mobile" md={2}><b>Guest Mobile</b></Label>
+                                    <Label id="noOfGuests" md={2}><b>Number of Guests</b></Label>
                                         <Col md={7}>
-                                            <Input type="text" placeholder="enter mobile no."/>
+                                            <Input value = {noOfGuests} type="text" placeholder="enter no.of Guests" onChange={(e) => {setGuests(e.target.value)}}/>
                                         </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                     <Label id="roomno" md={2}><b>Room No.</b></Label>
                                         <Col md={7}>
-                                            <Input type="text" placeholder="enter room number"/>
+                                            <Input value = {roomNo} type="text" placeholder="enter room number" onChange={(e) => {setRoomNo(e.target.value)}}/>
                                         </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                     <Label id="daysofstay" md={2}><b>Reservation for</b></Label>
                                         <Col md={7}>
-                                            <Input type="text" placeholder="enter number of days"/>
+                                            <Input value={noOfDays} type="text" placeholder="enter number of days" onChange={(e) => {setDays(e.target.value)}}/>
                                         </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                     <Label id="billforstay" md={2}><b>Bill for Stay</b></Label>
                                         <Col md={7}>
-                                            <Input type="text" placeholder="enter amount"/>
+                                            <Input value={bill} type="text" placeholder="enter amount" onChange={(e) => {setBill(e.target.value)}}/>
                                         </Col>
                                 </FormGroup>
                             </Form>
-                            <Button size='m' variant='primary' className="floatright" >Assign Room</Button>
+                            <Button size='m' variant='primary' className="floatright" onClick = {addNewGuest} disabled={!name||!email||(!noOfGuests)||(!noOfDays)||(!roomNo)||(!bill)} >Assign Room</Button>
                         </div>
                     </div>
             </div>
         ); 
-    }
+//}
 }
-
+// &&(!noOfGuests)&&(!noOfDays)&&(!roomNo)&&(!bill)
 export default Rooms;
