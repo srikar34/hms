@@ -14,6 +14,7 @@ class GuestPortalHeader extends Component {
                         <Nav.Link href="/guest/complaints">Complaints</Nav.Link>
                         <Nav.Link href="/guest/bill">Bill</Nav.Link>
                         <Nav.Link href="/guest/rar">Ratings and Reviews</Nav.Link>
+                        <Nav.Link href="/guest/profile">Profile</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>

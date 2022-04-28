@@ -14,6 +14,7 @@ class ManagerPortalHeader extends Component {
                         <Nav.Link href="/manager/services">Services</Nav.Link>
                         <Nav.Link href="/manager/complaints">Complaints</Nav.Link>
                         <Nav.Link href="/manager/rar">Ratings and Reviews</Nav.Link>
+                        <Nav.Link href="/manager/profile">Profile</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
