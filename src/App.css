@@ -82,6 +82,19 @@
   border: 3px solid;
   text-align: center;
 }
+.divcenter{
+  text-align: center;
+  padding: 5px;
+}
+
+
+.floatright{
+  float: right;
+}
+
+.floatcenter{
+  float: center;
+}
 
 .left{
   padding: 70px 0;
@@ -89,4 +102,12 @@
   left: 10%;
   top: 10%;
   text-align: center;
+}
+
+.g-signin{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -50px;
 }
