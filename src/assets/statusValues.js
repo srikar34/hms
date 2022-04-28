@@ -5,3 +5,8 @@ export const ROOM_STATUS ={
     RESERVED : "RESERVED"
 };
 
+export const SERVICES = {
+    LAUNDRY : "LAUNDRY",
+    SPA : "SPA",
+    HOUSE_KEEPING : "HOUSE KEEPING",
+};
