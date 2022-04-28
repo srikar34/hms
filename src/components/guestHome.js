@@ -6,8 +6,6 @@ import { Form, FormGroup, Col, Label, Input} from 'reactstrap';
 import { SERVICES } from '../assets/statusValues';
 
 class Guest extends Component {
-
-
     constructor(props){
         super(props);
 
