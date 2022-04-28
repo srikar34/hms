@@ -24,6 +24,7 @@ import StaffProfile from './components/staffProfile';
 import ContactUs from './components/contactUs';
 import AddGuest from './components/addNewGuest';
 import Login from './components/login';
+import CheckAllRoomDetails from './components/checkAllRoomDetails';
 
 class App extends Component {
   render(){
@@ -36,6 +37,7 @@ class App extends Component {
             <Route exact path="/manager/rooms" element={<Rooms />} />
             <Route exact path="/manager/rooms/addguest" element={<AddGuest />} />
             <Route exact path="/manager/rooms/updatestatus" element={<UpdateRoomStatus />} />
+            <Route exact path="/manager/rooms/checkallroomdetails" element={<CheckAllRoomDetails />} />
             <Route exact path="/manager/services" element={<Services />} />
             <Route exact path="/manager/complaints" element={<Complaints />} />
             <Route exact path="/manager/complaints/active" element={<ActiveComplaints />} />

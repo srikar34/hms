@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import GuestPortalHeader from './guestPortalHeader';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import Login from './login';
-
 import { Form, FormGroup, Col, Label, Input} from 'reactstrap';
 import { SERVICES } from '../assets/statusValues';
 
@@ -93,26 +91,9 @@ class Guest extends Component {
                             </Col>
                         </FormGroup>
                     </Form>
-                    <div className='left'>
-                        <Link to='/guest/contact'>
-                            Contact Helpline?
-                        </Link>
-                    </div>
-                    <br/>
-                    <div>
-                        Have a Complaint?
-                        <DropdownButton id="dropdown-basic-button" title="Select Category">
-                        <Dropdown.Item href="#/action-1">Room Cleaning</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Laundry</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Spa</Dropdown.Item>
-                        </DropdownButton>
-                        <Button size='m' variant='outline-primary' >Click here</Button>
-                    </div>
-                    <br/>
                     <Link to='/guest/contact'>
                         Contact Helpline?
                     </Link>
-                    <Login/>
                 </div>
             </div>
         );

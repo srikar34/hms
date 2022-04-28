@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../App.css';
 import ManagerPortalHeader from './managerPortalHeader';
 // import ActiveComplaints from './activeComplaints';
@@ -6,8 +6,7 @@ import ManagerPortalHeader from './managerPortalHeader';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-class Complaints extends Component {
-    render() {
+function Complaints() {
         return(
             <div >
                 <ManagerPortalHeader />
@@ -26,7 +25,6 @@ class Complaints extends Component {
             </div>
             </div>
         ); 
-    }
 }
 
 export default Complaints;
