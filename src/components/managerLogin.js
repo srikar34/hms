@@ -8,7 +8,7 @@ import {
 import "../App.css";
 import { auth } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
-import { getDocs } from "firebase/firestore";
+// import { getDocs } from "firebase/firestore";
 import { MANAGER_EMAIL } from "../assets/statusValues";
 // import { getDocs, doc, addDoc, collection, query, where, onSnapshot, updateDoc } from "firebase/firestore";
 export let managerEmail = "";
@@ -43,6 +43,7 @@ function ManagerLogin() {
         console.log(error.message);
         window.alert(error.message);
       }
+    }
   };
 
   const logout = async () => {
