@@ -11,10 +11,11 @@ import React, { useEffect } from 'react';
 function ManagerPortalHeader(){
 //class ManagerPortalHeader extends Component {
 
-    const usersCollectionRef = collection(db, "users");
+    const usersCollectionRef = collection(db, "manager");
     const ff = (doc) => {
         return doc.data().email_id == managerEmail
     }
+    console.log(managerEmail);
     // const [managerName, setManagerName] = useState(null);
     // const [user, setUser] = useState(null);
     useEffect(()=>{
@@ -26,6 +27,7 @@ function ManagerPortalHeader(){
                 name : temp.name,
                 email : temp.email
             }));
+            console.log(localStorage.getItem('manager'))
             // setUser(temp);
             // console.log("user = ");
             // console.log(user.name);

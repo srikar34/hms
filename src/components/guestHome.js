@@ -4,7 +4,7 @@ import GuestPortalHeader from './guestPortalHeader';
 import { Button } from 'react-bootstrap';
 import { Link, Navigate } from 'react-router-dom';
 import { Form, FormGroup, Col, Label, Input} from 'reactstrap';
-import { SERVICES } from '../assets/statusValues';
+import { COMPLAINT_STATUS, SERVICES, SERVICE_STATUS } from '../assets/statusValues';
 import { async } from '@firebase/util';
 import { getDocs, addDoc, collection, query, where, onSnapshot } from "firebase/firestore";
 import {db} from "../firebase-config";
@@ -17,7 +17,7 @@ import {
     onAuthStateChanged,
     signOut,
   } from "firebase/auth";
-  
+
 function Guest() {
     const navigate = useNavigate();
 
@@ -36,6 +36,7 @@ function Guest() {
 
     const [selected_service,setSelectedService] = useState(null);
     const [complaint,setComplaint] = useState(null);
+    // const [complaintSubmit,setBool] = useState(false);
     // const [guestDetails, setGuestDetails] = useState(getGuestDetails());
     var maxServiceId = 3;
     var maxComplaintId = 3;
@@ -93,11 +94,12 @@ function Guest() {
         const getUser = async ()=>{
             const data  = await getDocs(usersCollectionRef);
             const user = data.docs.filter(ff)[0].data();
+            console.log(user);
             localStorage.setItem('guest',JSON.stringify({
                 name : user.name,
                 noOfGuests : user.no_of_guests,
                 roomNo : user.room_number,
-                email : user.email
+                email : user.email_id
             }));
             console.log(localStorage.getItem('guest'));
             // data.docs.map((doc) => {console.log(doc.data())});
@@ -160,12 +162,48 @@ function Guest() {
     //     })
     //     console.log(books)
     // })
-
-    const createServiceReq = async() => {
-        await addDoc(servicerecordCollectionRef, {description:selected_service, from_room:GUEST.ROOM_NO, guest_email:GUEST.EMAIL_ID, request_from:GUEST.NAME, service_id:++maxServiceId, status:"Requested"});
+    const resetComplaint = () => {
+        setComplaint(null);
     }
-    const createComplaintReq = async() => {
-        await addDoc(complaintrecordCollectionRef, {complaint_id:maxComplaintId, description:complaint, from_email:GUEST.EMAIL_ID, from_room:GUEST.ROOM_NO, reply:"", status:"Active"});
+
+    const resetRequest = () => {
+        setSelectedService(null);
+    }
+
+    const createServiceReq = async(obj) => {
+        await addDoc(servicerecordCollectionRef,obj);
+    }
+    const createComplaintReq = async(obj) => {
+        await addDoc(complaintrecordCollectionRef,obj);
+    }
+
+    const onComplaint = () => {
+        const obj = {
+            complaint_id:++maxComplaintId,
+            description:complaint, 
+            from_email:JSON.parse(localStorage.getItem('guest')).email, 
+            from_room:JSON.parse(localStorage.getItem('guest')).roomNo,
+            reply:"", 
+            status:COMPLAINT_STATUS.ACTIVE
+        }
+        console.log(obj);
+        createComplaintReq(obj);
+        resetComplaint();
+        // setBool(true);
+    }
+
+    const onService = () => {
+        const obj = {
+            description:selected_service,
+             from_room:JSON.parse(localStorage.getItem('guest')).roomNo, 
+             guest_email:JSON.parse(localStorage.getItem('guest')).email, 
+             request_from:JSON.parse(localStorage.getItem('guest')).name, 
+             service_id:++maxServiceId, 
+             status : SERVICE_STATUS.REQUESTED
+        }
+        console.log(obj);
+        createServiceReq(obj);    
+        resetRequest();
     }
 
     return(
@@ -202,7 +240,7 @@ function Guest() {
                             </select>
                         </Col>
                         <Col>
-                            <Button size='m' variant='primary' disabled={!selected_service} onClick={createServiceReq} >Submit</Button>
+                            <Button size='m' variant='primary' disabled={!selected_service} onClick={onService} >Submit</Button>
                         </Col>
                     </FormGroup>
                 </Form>
@@ -213,10 +251,11 @@ function Guest() {
                             <Input rows="2" type="textarea" value={complaint} placeholder="type your complaint here" onChange={handleComplaint}/>
                         </Col>
                         <Col>
-                            <Button size='m' variant='primary' disabled={!complaint} onClick = {createComplaintReq}>Submit</Button>
+                            <Button size='m' variant='primary' disabled={!complaint} onClick = {onComplaint}>Submit</Button>
                         </Col>
                     </FormGroup>
                 </Form>
+                {/* {complaintSubmit && <Modal /> } */}
                 <Link to='/guest/contact'>
                     Contact Helpline?
                 </Link>

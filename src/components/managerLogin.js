@@ -48,6 +48,7 @@ function ManagerLogin() {
     <input type="text" class="login__input" placeholder="Email"
       onChange={(event) => {
         managerEmail = event.target.value;
+        console.log(managerEmail);
         setLoginEmail(event.target.value);
       }}
     />
