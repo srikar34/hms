@@ -4,9 +4,6 @@ import StaffPortalHeader from './staffPortalHeader';
 import { Form,FormGroup,Label,Col,Input } from "reactstrap";
 import { SERVICES, SERVICE_STATUS } from '../assets/statusValues';
 
-<<<<<<< HEAD
-class Guest extends Component {
-=======
 class Staff extends Component {
 
     constructor(props){
@@ -41,7 +38,6 @@ class Staff extends Component {
         });
     }
 
->>>>>>> 3c5698b5633e115b4ae4b45a6ca9279755850416
     render(){
         return(
             <div>
@@ -98,4 +94,4 @@ class Staff extends Component {
     }
 }
 
-export default Guest;
+export default Staff;
