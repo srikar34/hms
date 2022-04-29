@@ -13,6 +13,7 @@ function ManagerPortalHeader(){
 
     const usersCollectionRef = collection(db, "manager");
     const ff = (doc) => {
+        console.log(doc.data());
         return doc.data().email_id == managerEmail
     }
     console.log(managerEmail);
@@ -23,9 +24,12 @@ function ManagerPortalHeader(){
             const data  = await getDocs(usersCollectionRef);
             // data.docs.map((doc) => {console.log(doc.data())});
             const temp = data.docs.filter(ff)[0].data();
+            console.log(temp);
             localStorage.setItem('manager',JSON.stringify({
                 name : temp.name,
-                email : temp.email
+                email : temp.email_id,
+                emp_id: temp.employee_id,
+                ph_no: temp.phone_number
             }));
             console.log(localStorage.getItem('manager'))
             // setUser(temp);
