@@ -8,9 +8,9 @@ import {
 import "../App.css";
 import { auth } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
-export let managerEmail = "";
+export let staffEmail = "";
 
-function ManagerLogin() {
+function StaffLogin() {
     const navigate = useNavigate();
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -30,7 +30,7 @@ function ManagerLogin() {
         loginPassword
       );
       console.log(user);
-      navigate("/manager");
+      navigate("/staff");
     } catch (error) {
       console.log(error.message);
     }
@@ -48,7 +48,7 @@ function ManagerLogin() {
 
           placeholder="Email..."
           onChange={(event) => {
-            managerEmail = event.target.value;
+            staffEmail = event.target.value;
             // console.log(GUEST.EMAIL_ID);
             setLoginEmail(event.target.value);
           }}
@@ -72,4 +72,4 @@ function ManagerLogin() {
   );
 }
 
-export default ManagerLogin;
+export default StaffLogin;
