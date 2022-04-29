@@ -10,8 +10,6 @@ import { auth } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
 import { GUEST } from "../assets/guestDetails";
 
-export let guestEmail = "";
-
 function Login() {
     const navigate = useNavigate();
   const [loginEmail, setLoginEmail] = useState("");
@@ -52,7 +50,6 @@ function Login() {
           onChange={(event) => {
             GUEST.EMAIL_ID = event.target.value;
             console.log(GUEST.EMAIL_ID);
-            guestEmail = event.target.value;
             setLoginEmail(event.target.value);
           }}
         />
@@ -60,7 +57,6 @@ function Login() {
           placeholder="Password..."
           onChange={(event) => {
             setLoginPassword(event.target.value);
-
           }}
         />
 
