@@ -41,8 +41,8 @@ function ManagerLogin() {
         navigate("/manager");
       } catch (error) {
         console.log(error.message);
+        window.alert(error.message);
       }
-    }
   };
 
   const logout = async () => {
