@@ -1,7 +1,8 @@
 import React, { Component, useEffect } from 'react'; 
+import { useNavigate } from "react-router-dom";
 import GuestPortalHeader from './guestPortalHeader';
 import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { Form, FormGroup, Col, Label, Input} from 'reactstrap';
 import { SERVICES } from '../assets/statusValues';
 import { async } from '@firebase/util';
@@ -9,9 +10,16 @@ import { getDocs, addDoc, collection, query, where, onSnapshot } from "firebase/
 import {db} from "../firebase-config";
 import { GUEST } from '../assets/guestDetails';
 import { useState } from 'react';
-import { guestEmail } from './login';
-
+import { guestEmail,userEmail } from './login';
+import { auth } from "../firebase-config";
+import {
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut,
+  } from "firebase/auth";
+  
 function Guest() {
+    const navigate = useNavigate();
     const [selected_service,setSelectedService] = useState(null);
     const [complaint,setComplaint] = useState(null);
 
@@ -20,6 +28,12 @@ function Guest() {
     const usersCollectionRef = collection(db, "users");
     const servicerecordCollectionRef = collection(db, "servicerecord");
     const complaintrecordCollectionRef = collection(db, "complaintrecord");
+
+    
+    const logout = async () => {
+        await signOut(auth);
+         navigate('/login');
+      };
 
     // const events = db.child('servicerecord');
     // const query = events
@@ -163,6 +177,11 @@ function Guest() {
                     Contact Helpline?
                 </Link>
             </div>
+            <button onClick={logout} class="button logout__submit">
+    <span class="button__text">Log Out</span>
+    
+    </button> 
+           
         </div>
     );
 }
