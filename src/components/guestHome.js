@@ -192,10 +192,10 @@ function Guest() {
     const onComplaint = () => {
         const id = Math.floor(Math.random()*10000);
         const obj = {
-            complaint_id: id,
+            complaint_id: Number(id),
             description:complaint, 
             from_email:JSON.parse(localStorage.getItem('guest')).email, 
-            from_room:JSON.parse(localStorage.getItem('guest')).roomNo,
+            from_room: Number(JSON.parse(localStorage.getItem('guest')).roomNo),
             reply:"", 
             status:COMPLAINT_STATUS.ACTIVE
         }
@@ -209,10 +209,10 @@ function Guest() {
         const id = Math.floor(Math.random()*10000);
         const obj = {
             description:selected_service,
-             from_room:JSON.parse(localStorage.getItem('guest')).roomNo, 
+             from_room: Number(JSON.parse(localStorage.getItem('guest')).roomNo), 
              guest_email:JSON.parse(localStorage.getItem('guest')).email, 
              request_from:JSON.parse(localStorage.getItem('guest')).name, 
-             service_id: id, 
+             service_id: Number(id),
              status : SERVICE_STATUS.REQUESTED
         }
         console.log(obj);

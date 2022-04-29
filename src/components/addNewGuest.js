@@ -29,10 +29,10 @@ function Rooms(){
     const roomsCollectionRef = collection(db, "roomrecord");
     const billCollectionRef = collection(db,"billrecord");
     const createNewGuest = async() => {
-        await addDoc(usersCollectionRef, {email_id: email, name:name, no_of_guests:noOfGuests, room_number:Number(roomNo)});
+        await addDoc(usersCollectionRef, {email_id: email, name:name, no_of_guests:Number(noOfGuests), room_number:Number(roomNo)});
     }
     const createNewRoomRecord = async() => {
-        await addDoc(roomsCollectionRef, {email_id: email, name:name, num_guests:noOfGuests, room_number:Number(roomNo), status:"Occupied"});
+        await addDoc(roomsCollectionRef, {email_id: email, name:name, num_guests:Number(noOfGuests), room_number:Number(roomNo), status:"Occupied"});
     }
     const createNewBillRecord = async() => {
         await addDoc(billCollectionRef, {room_number : Number(roomNo) , due : Number(bill)});
