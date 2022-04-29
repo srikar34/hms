@@ -39,58 +39,60 @@ class Staff extends Component {
     }
 
     render(){
-        return(
-            <div>
-                <StaffPortalHeader/>
+        // if (JSON.parse(localStorage.getItem('validEmail')).valid){
+            return(
                 <div>
-                    <div >
-                    <h2 className='h1center'> Current Work Assigned</h2>
-                    <Form style={{marginLeft:'5%'}}>
-                        <FormGroup  row>
-                            <Label id="roomnumber" md={2}><b>Room No.</b></Label>
-                            <Col md={1}>
-                                <Input disabled value={this.state.roomno}/>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row >
-                            <Label md={2}><b>Service</b></Label>
-                            <Col md={1}>
-                                <Input disabled value={this.state.service}/>
-                            </Col>
-                        </FormGroup>
-                    </Form>
+                    <StaffPortalHeader/>
+                    <div>
+                        <div >
+                        <h2 className='h1center'> Current Work Assigned</h2>
+                        <Form style={{marginLeft:'5%'}}>
+                            <FormGroup  row>
+                                <Label id="roomnumber" md={2}><b>Room No.</b></Label>
+                                <Col md={1}>
+                                    <Input disabled value={this.state.roomno}/>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row >
+                                <Label md={2}><b>Service</b></Label>
+                                <Col md={1}>
+                                    <Input disabled value={this.state.service}/>
+                                </Col>
+                            </FormGroup>
+                        </Form>
+                    </div>
+                    <div style={{marginLeft:'5%'}}>
+                        <Form >
+                            <FormGroup row >
+                                <Label  md={2}><b>Update Status</b></Label>
+                                <Col md={2}>
+                                    <select disabled={!this.state.roomno} value={this.state.selected_status} onChange={this.handleStatus}>
+                                        <option>--select status--</option>
+                                        {Object.values(SERVICE_STATUS).map(displaydata => (
+                                            <option >{displaydata}</option>
+                                        ))}
+                                    </select>
+                                </Col>
+                                <Col>
+                                    <Button size='m' variant='primary' disabled={!this.state.selected_status}>Submit</Button>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row>
+                                <Label  md={2}><b>Add Bill</b></Label>
+                                <Col  md={2}>
+                                    <Input value={this.state.bill} type="number" placeholder="Enter Bill Here" onChange={this.handleBill}/>
+                                </Col>
+                                <Col>
+                                    <Button size='m' variant='primary' disabled={!this.state.bill}>Submit</Button>
+                                </Col>
+                            </FormGroup>
+                        </Form>
+                    </div>
+                    
+                    </div>
                 </div>
-                <div style={{marginLeft:'5%'}}>
-                    <Form >
-                        <FormGroup row >
-                            <Label  md={2}><b>Update Status</b></Label>
-                            <Col md={2}>
-                                <select disabled={!this.state.roomno} value={this.state.selected_status} onChange={this.handleStatus}>
-                                    <option>--select status--</option>
-                                    {Object.values(SERVICE_STATUS).map(displaydata => (
-                                        <option >{displaydata}</option>
-                                    ))}
-                                </select>
-                            </Col>
-                            <Col>
-                                <Button size='m' variant='primary' disabled={!this.state.selected_status}>Submit</Button>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label  md={2}><b>Add Bill</b></Label>
-                            <Col  md={2}>
-                                <Input value={this.state.bill} type="number" placeholder="Enter Bill Here" onChange={this.handleBill}/>
-                            </Col>
-                            <Col>
-                                <Button size='m' variant='primary' disabled={!this.state.bill}>Submit</Button>
-                            </Col>
-                        </FormGroup>
-                    </Form>
-                </div>
-                
-                </div>
-            </div>
-        );
+            );
+        // }
     }
 }
 

@@ -85,7 +85,7 @@ function Guest() {
                 roomNo : user.room_number,
                 email : user.email
             }));
-            // console.log(localStorage.getItem('guest'));
+            console.log(localStorage.getItem('guest'));
             // data.docs.map((doc) => {console.log(doc.data())});
             // const user = data.docs.filter(ff)[0].data();
             // setUser(user);
@@ -114,7 +114,7 @@ function Guest() {
 
     const getRoom = () => {
         if(localStorage.getItem('guest')){
-            // console.log("room no = " + JSON.parse(localStorage.getItem('guest')).roomNo)
+            console.log("room no = " + JSON.parse(localStorage.getItem('guest')).roomNo)
             return JSON.parse(localStorage.getItem('guest')).roomNo;
         }
         else{
@@ -124,7 +124,7 @@ function Guest() {
 
     const getCount = () => {
         if(localStorage.getItem('guest')){  
-            // console.log("count = " + JSON.parse(localStorage.getItem('guest')).noOfGuests);
+            console.log("count = " + JSON.parse(localStorage.getItem('guest')).noOfGuests);
 
             return JSON.parse(localStorage.getItem('guest')).noOfGuests;
         }
