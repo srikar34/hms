@@ -60,7 +60,6 @@ function Login() {
           placeholder="Password..."
           onChange={(event) => {
             setLoginPassword(event.target.value);
-
           }}
         />
 
