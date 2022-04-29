@@ -26,7 +26,7 @@ function StaffPortalHeader() {
             // console.log(temp);
             localStorage.setItem('staff',JSON.stringify({
                 name : temp.name,
-                email : temp.email,
+                email : temp.email_id,
                 division : temp.division,
                 empId : temp.emp_id
             }));

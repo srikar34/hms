@@ -29,7 +29,7 @@ function GuestServices(){
                 <ManagerPortalHeader />
                 <br/>
                 <h1>Active Service Requests</h1>
-                <Table striped bordered hover size="sm">
+                <Table striped bordered hover size="sm" variant='light'>
                     <thead>
                         <tr>
                         <th>Service ID</th>
@@ -50,13 +50,13 @@ function GuestServices(){
                             <th>{service.request_from}</th>
                             <th>{service.description}</th>
                             <th>{service.status}</th>
-                            <th>{service.staff_name}</th>
+                            <th>{service.staff}</th>
                             </tr>
                     ))}
                     </tbody>
                 </Table>
                 <h1>Completed Service Requests</h1>
-                <Table striped bordered hover size="sm">
+                <Table striped bordered hover size="sm" variant='light'>
                     <thead>
                         <tr>
                         <th>Service ID</th>
@@ -77,7 +77,7 @@ function GuestServices(){
                             <th>{service.request_from}</th>
                             <th>{service.description}</th>
                             <th>{service.status}</th>
-                            <th>{service.staff_name}</th>
+                            <th>{service.staff}</th>
                             </tr>
                     ))}
                     </tbody>

@@ -39,7 +39,7 @@ function GuestComplaints () {
             <GuestPortalHeader />
             {/* <br/> */}
             <h1>Active Complaints</h1>
-            <Table striped bordered hover size="sm">
+            <Table striped bordered hover size="sm" variant='light'>
                 <thead>
                     <tr>
                     <th>Room No</th>
@@ -63,7 +63,7 @@ function GuestComplaints () {
             </Table>
             <br/>
             <h1>Resolved Complaints</h1>
-                <Table striped bordered hover size="sm">
+                <Table striped bordered hover size="sm" variant='light'>
                     <thead>
                         <tr>
                         <th>Room No</th>

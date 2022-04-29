@@ -11,19 +11,19 @@ function LoginSelect() {
             <div className='wrapper'>
                 <div >
                     <Link to="/login">    
-                        <Button size='lg' variant='outline-primary' >Guest Portal</Button>
+                        <Button variant="outline-dark" size='lg'>Guest Portal</Button>
                     </Link>
                 </div>
                 <br/>
                 <div >
                     <Link to="/managerLogin">    
-                        <Button size='lg' variant='outline-primary' >Manager Portal</Button>
+                        <Button size='lg' variant='outline-dark' >Manager Portal</Button>
                     </Link>
                 </div>
                 <br/>
                 <div >
                     <Link to="/staffLogin">    
-                        <Button size='lg' variant='outline-primary' >Staff Portal</Button>
+                        <Button size='lg' variant='outline-dark' >Staff Portal</Button>
                     </Link>
                 </div>
             </div>
