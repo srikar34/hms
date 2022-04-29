@@ -26,7 +26,6 @@ function ManagerLogin() {
 
 
   const login = async () => {
-<<<<<<< HEAD
     if(loginEmail!==MANAGER_EMAIL){
       window.alert("please login through your portal");
       navigate("/");  
@@ -43,19 +42,6 @@ function ManagerLogin() {
       } catch (error) {
         console.log(error.message);
       }
-=======
-    try {
-      const user = await signInWithEmailAndPassword(
-        auth,
-        loginEmail,
-        loginPassword
-      );
-      console.log(user);
-      navigate("/manager");
-    } catch (error) {
-      console.log(error.message);
-      window.alert(error.message);
->>>>>>> 6b8448473b975277dfb9fd6980f9c75c8d149c8d
     }
   };
 
