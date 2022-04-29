@@ -27,12 +27,6 @@ class Rooms extends Component {
                                         </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Label id="mobile" md={2}><b>Guest Mobile</b></Label>
-                                        <Col md={7}>
-                                            <Input type="text" placeholder="enter mobile no."/>
-                                        </Col>
-                                </FormGroup>
-                                <FormGroup row>
                                     <Label id="roomno" md={2}><b>Room No.</b></Label>
                                         <Col md={7}>
                                             <Input type="text" placeholder="enter room number"/>
