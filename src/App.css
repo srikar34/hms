@@ -12,7 +12,7 @@
 }
 
 body {
-	background: linear-gradient(90deg, #f98484, #ffe4e6);		
+	background: linear-gradient(90deg, #f96868, #ffe4e6);		
 }
 /* .container {
 	display: flex;
@@ -25,15 +25,18 @@ span{
   margin: 0 auto;
 }
  .hotelbrand{	
+    margin-top: 10px;
   	font-size: 22px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: italic;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(11, 11, 11);
 } 
 .screen {		
-	background: linear-gradient(90deg, #5D54A4, #7C78B8);		
+	background: linear-gradient(90deg, #15151a, #5d5c69);		
 	position: relative;	
 	height: 600px;
 	width: 360px;	
-	box-shadow: 0px 0px 24px #5C5696;
+	box-shadow: 0px 0px 24px #434349;
 }
 
 .screen__content {

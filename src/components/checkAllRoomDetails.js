@@ -27,7 +27,7 @@ function CheckAllRoomDetails() {
         <div >
             <ManagerPortalHeader />
             <h1 className='h1center'>Room Records</h1>
-            <Table striped bordered hover size="sm">
+            <Table striped bordered hover size="sm" variant='light'>
                 <thead>
                     <tr>
                     <th>Room Number</th>

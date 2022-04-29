@@ -28,7 +28,7 @@ function ClosedComplaints(){
             <div >
                 <ManagerPortalHeader />
                 <h1 className='h1center'>Resolved Complaints</h1>
-                <Table striped bordered hover size="sm">
+                <Table striped bordered hover size="sm" variant='light'>
                     <thead>
                         <tr>
                         <th>Room No</th>

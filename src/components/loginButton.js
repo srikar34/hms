@@ -8,7 +8,7 @@ class LoginButton extends Component {
         return(
             <div >
                 <Link to={this.props.link}>    
-                    <Button size='lg' variant='outline-primary' > {this.props.buttonName}</Button>
+                    <Button size='lg' variant='outline-dark' > {this.props.buttonName}</Button>
                 </Link>
             </div>
         );

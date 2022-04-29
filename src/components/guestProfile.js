@@ -55,8 +55,8 @@ function GuestProfile () {
                 </h1>
                 {/* <div className='center'>
                     <div>
-                        <Button size='m' variant='outline-primary' >Save</Button>
-                        <Button size='m' variant='outline-primary' >Edit</Button>
+                        <Button size='m' variant='outline-dark' >Save</Button>
+                        <Button size='m' variant='outline-dark' >Edit</Button>
                     </div>
                 </div> */}
                 <Form style={{marginLeft:'5%'}}>
