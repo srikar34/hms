@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { Navbar,Nav } from 'react-bootstrap';
 import { Container } from 'react-bootstrap';
 import { MANAGER } from '../assets/names';
+import { managerEmail } from './managerLogin';
 
 class ManagerPortalHeader extends Component {
     render(){

@@ -6,7 +6,7 @@ import StaffPortalHeader from './staffPortalHeader';
 import { FormGroup,Label,Col,Input } from "reactstrap";
 
 
-class Guest extends Component {
+class Staff extends Component {
     render(){
         return(
             <div>
@@ -55,4 +55,4 @@ class Guest extends Component {
     }
 }
 
-export default Guest;
+export default Staff;
