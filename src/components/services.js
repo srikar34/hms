@@ -50,7 +50,7 @@ function GuestServices(){
                             <th>{service.request_from}</th>
                             <th>{service.description}</th>
                             <th>{service.status}</th>
-                            <th>{service.staff_name}</th>
+                            <th>{service.staff}</th>
                             </tr>
                     ))}
                     </tbody>
@@ -77,7 +77,7 @@ function GuestServices(){
                             <th>{service.request_from}</th>
                             <th>{service.description}</th>
                             <th>{service.status}</th>
-                            <th>{service.staff_name}</th>
+                            <th>{service.staff}</th>
                             </tr>
                     ))}
                     </tbody>
