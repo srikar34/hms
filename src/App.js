@@ -24,6 +24,8 @@ import StaffProfile from './components/staffProfile';
 import ContactUs from './components/contactUs';
 import AddGuest from './components/addNewGuest';
 import Login from './components/login';
+import ManagerLogin from './components/managerLogin';
+import StaffLogin from './components/staffLogin';
 import CheckAllRoomDetails from './components/checkAllRoomDetails';
 
 class App extends Component {
@@ -55,6 +57,9 @@ class App extends Component {
             <Route exact path="/staff" element={<Staff />} />
             <Route exact path="/staff/profile" element={<StaffProfile />} />
             <Route exact path="/login" element={<Login />} />
+            <Route exact path="/managerLogin" element={<ManagerLogin />} />
+            <Route exact path="/staffLogin" element={<StaffLogin />} />
+
             {/* <Route exact path="/" component={MainPage} /> */}
           </Routes>
           {/* <redirect to="/" /> */}
