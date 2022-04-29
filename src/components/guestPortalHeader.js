@@ -8,6 +8,7 @@ function GuestPortalHeader(){
 
     const returnName = () => {
         if(localStorage.getItem('guest')){
+            console.log( JSON.parse(localStorage.getItem('guest')).name);
             return JSON.parse(localStorage.getItem('guest')).name;
         }
         else{

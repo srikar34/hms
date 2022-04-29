@@ -3,8 +3,10 @@ import '../App.css';
 import { Link } from "react-router-dom";
 import { Button } from 'react-bootstrap';
 
-class LoginSelect extends Component {
-    render() {
+function LoginSelect() {
+
+    localStorage.setItem('validEmail', JSON.stringify({valid : false}));
+
         return(
             <div className='wrapper'>
                 <div >
@@ -26,7 +28,6 @@ class LoginSelect extends Component {
                 </div>
             </div>
         ); 
-    }
 }
 
 export default LoginSelect;
