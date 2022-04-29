@@ -63,7 +63,7 @@ function Staff() {
             const temp = {...data.docs.filter(ff)[0].data(),id : data.docs.filter(ff)[0].id};
             localStorage.setItem('staff',JSON.stringify({
                 name : temp.name,
-                email : temp.email,
+                email : temp.email_id,
                 division : temp.division,
                 empId : temp.emp_id,
                 docId : temp.id
