@@ -33,6 +33,7 @@ function StaffLogin() {
       navigate("/staff");
     } catch (error) {
       console.log(error.message);
+      window.alert(error.message);
     }
   };
 

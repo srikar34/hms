@@ -29,6 +29,7 @@ function Rooms(){
     const addNewGuest = () => {
         createNewGuest();
         createNewRoomRecord();
+        window.alert('Guest Admitted Successfully and Room allocated');
     }
 
 

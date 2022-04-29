@@ -199,6 +199,7 @@ function Guest() {
         console.log(obj);
         createComplaintReq(obj);
         resetComplaint();
+        window.alert('Complaint raised you can track the complaint in Complaint window');
         // setBool(true);
     }
 
@@ -214,6 +215,7 @@ function Guest() {
         console.log(obj);
         createServiceReq(obj);    
         resetRequest();
+        window.alert('Service requested you can track the service in Services window');
     }
 
     return(
