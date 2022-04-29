@@ -1,77 +1,90 @@
-import React, { Component } from 'react';
+import React, { useState,useEffect } from 'react';
 import '../App.css';
 import ManagerPortalHeader from './managerPortalHeader';
 import {Table} from 'react-bootstrap';
-
-class Services extends Component {
-    render() {
+import {db} from '../firebase-config';
+import {
+    collection,
+    getDocs,
+    addDoc,
+    updateDoc,
+    deleteDoc,
+    doc,
+  } from "firebase/firestore";
+import { SERVICE_STATUS } from '../assets/statusValues';
+       
+function GuestServices(){
+    const [services,setServices]=useState([]);
+    const servicesCollectionRef = collection(db, "servicerecord");
+    useEffect(()=>{
+        const getServices = async () =>{
+            const data = await getDocs(servicesCollectionRef);
+            console.log(data);
+            setServices(data.docs.map((doc)=>({...doc.data(),id:doc.id})));
+        };
+        getServices();
+    },[]);
         return(
             <div >
                 <ManagerPortalHeader />
                 <br/>
-                <h1>Active Requests</h1>
+                <h1>Active Service Requests</h1>
                 <Table striped bordered hover size="sm">
                     <thead>
                         <tr>
-                        <th>Room No</th>
+                        <th>Service ID</th>
+                        <th>Room</th>
                         <th>Guest Name</th>
-                        <th>Request id</th>
                         <th>Service</th>
-                        <th>Staff Name</th>
+                        <th>Status</th>
+                        <th>Staff Details</th>
                         </tr>
                     </thead>
                     <tbody>
+                    {services.map((service) =>
+                        (
+                            // const status = service.status;
+                            <tr hidden={(service.status===SERVICE_STATUS.COMPLETED)}>
+                            <th>{service.service_id}</th>
+                            <th>{service.from_room}</th>
+                            <th>{service.request_from}</th>
+                            <th>{service.description}</th>
+                            <th>{service.status}</th>
+                            <th>{service.staff_name}</th>
+                            </tr>
+                    ))}
+                    </tbody>
+                </Table>
+                <h1>Completed Service Requests</h1>
+                <Table striped bordered hover size="sm">
+                    <thead>
                         <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>124</td>
-                        <td>House Keeping</td>
-                        <td>Ronnie</td>
+                        <th>Service ID</th>
+                        <th>Room</th>
+                        <th>Guest Name</th>
+                        <th>Service</th>
+                        <th>Status</th>
+                        <th>Staff Details</th>
                         </tr>
-                        <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>169</td>
-                        <td>Laundry</td>
-                        <td>Fathi</td>
-                        </tr>
+                    </thead>
+                    <tbody>
+                    {services.map((service) =>
+                        (
+                            // const status = service.status;
+                            <tr hidden={!(service.status===SERVICE_STATUS.COMPLETED)}>
+                            <th>{service.service_id}</th>
+                            <th>{service.from_room}</th>
+                            <th>{service.request_from}</th>
+                            <th>{service.description}</th>
+                            <th>{service.status}</th>
+                            <th>{service.staff_name}</th>
+                            </tr>
+                    ))}
                     </tbody>
                 </Table>
                 <br/>
-
-                
-
-                <h1>Completed Requests</h1>
-                <Table striped bordered hover size="sm">
-                    <thead>
-                        <tr>
-                        <th>Room No</th>
-                        <th>Guest Name</th>
-                        <th>Request id</th>
-                        <th>Service</th>
-                        <th>Staff Name</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>3</td>
-                        <td> Larry</td>
-                        <td>172</td>
-                        <td>Sink blocked</td>
-                        <td>Balli</td>
-                        </tr>
-                        <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>23</td>
-                        <td>Spa</td>
-                        <td>Mab</td>
-                        </tr>
-                    </tbody>
-                </Table>
             </div>
         ); 
-    }
 }
 
-export default Services;
+export default GuestServices;
