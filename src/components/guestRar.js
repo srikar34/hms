@@ -10,12 +10,15 @@ import '../App.css';
 
 function GuestRar () {
 //class GuestRar extends Component {
-    const [feedback, setFeedback] = useState(null);
+    const [feedback, setFeedback] = useState("");
     const [rating, ratingChanged] = useState(null);
     const handleFeedback = (e) => {
         setFeedback(e.target.value);    
     }
-
+    const reset = () => {
+        setFeedback("");
+        ratingChanged(null);
+    }
     const ratingChange = (newRating) => {
         console.log(newRating);
         ratingChanged(newRating);
@@ -31,6 +34,7 @@ function GuestRar () {
             }
         console.log(obj);
         createRatingRecord(obj);
+        reset();
     }
     const createRatingRecord = async (record) => {
         await addDoc(ratingsCollectionRef, record);

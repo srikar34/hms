@@ -2,130 +2,253 @@ import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import StaffPortalHeader from './staffPortalHeader';
 import { Form,FormGroup,Label,Col,Input } from "reactstrap";
-import { SERVICES, SERVICE_STATUS } from '../assets/statusValues';
+import { SERVICES, STAFF_SERVICE_STATUS, SERVICE_STATUS, STAFF_STATUS } from '../assets/statusValues';
 import {
     signInWithEmailAndPassword,
     onAuthStateChanged,
     signOut,
   } from "firebase/auth";
+import {db} from "../firebase-config";
+import { getDocs, doc, addDoc, collection, query, where, onSnapshot, updateDoc } from "firebase/firestore";
 import { auth } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { staffEmail } from './staffLogin';
 
-  
 function Staff() {
     const navigate = useNavigate();
-
-    // const [selected_service,setSelectedService] = useState(null);
-    // const [complaint,setComplaint] = useState(null);
-    // // const [guestDetails, setGuestDetails] = useState(getGuestDetails());
-    // var maxServiceId = 3;
-    // var maxComplaintId = 3;
-    // const usersCollectionRef = collection(db, "users");
-    // const servicerecordCollectionRef = collection(db, "servicerecord");
-  //  const complaintrecordCollectionRef = collection(db, "complaintrecord");
-
     
+    const [Assignments,setAssignmets] = useState(null);
+    const [work,setWork] = useState(false);
+    const [selectedStatus,setSelectedStatus] = useState(null);
+    const [bill,setBill] = useState(null);
+    const [dues,setDues] = useState(null);
+
+  console.log(staffEmail);
+  const servicerecordCollectionRef = collection(db, "servicerecord");
+  const staffCollectionRef = collection(db, "staff");
+  const billCollectionRef = collection(db, "billrecord");
+
+  const ff = (doc) => {
+      return doc.data().email_id === staffEmail
+  }
+
+  const filt = (doc) => {
+
+    if(doc.data().staff){
+      // console.log(doc.data().staff);
+      // console.log(JSON.parse(localStorage.getItem('staff')).name);
+
+        if( doc.data().staff === JSON.parse(localStorage.getItem('staff')).name && doc.data().status === SERVICE_STATUS.ASSIGNED){
+          console.log("retunrning true");
+          return true;
+        }
+        else{
+          return false;
+        }
+    }
+    return false;
+    
+}
+
+  const roomFilter = (doc) => {
+    console.log(doc.data().room_number);
+    console.log(Assignments.from_room);
+    return doc.data().room_number === Assignments.from_room
+  }
+
+  useEffect(()=>{
+        const getUser = async ()=>{
+            const data  = await getDocs(staffCollectionRef);
+            const temp = {...data.docs.filter(ff)[0].data(),id : data.docs.filter(ff)[0].id};
+            localStorage.setItem('staff',JSON.stringify({
+                name : temp.name,
+                email : temp.email,
+                division : temp.division,
+                empId : temp.emp_id,
+                docId : temp.id
+            }));
+            console.log(JSON.parse(localStorage.getItem('staff')));
+        };
+        getUser();
+
+        const getWork = async ()=>{
+        console.log("inside getwork");
+        const data  = await getDocs(servicerecordCollectionRef);
+        // console.log(data.docs);
+        const request = data.docs.filter(filt);
+        console.log("request = ");
+        console.log(request[0].data());
+        // console.log(request[0].data());
+          
+        console.log(JSON.parse(localStorage.getItem('staff')));
+        if(request.length > 0){
+          console.log("inside if");
+          console.log(request);
+          
+          setWork(true);
+          setAssignmets({...request[0].data(),docId : request[0].id});
+          console.log("assignmentr = ");
+          console.log(Assignments);
+        }
+
+        console.log("inside getwork");
+      }
+      getWork();
+
+      const getBill = async () => {
+        const data = await getDocs(billCollectionRef);
+        const billRecord = data.docs.filter(roomFilter);
+        console.log(billRecord.length);
+        if(billRecord.length > 0){
+          console.log(billRecord[0].data());
+          setDues({...billRecord[0].data(), docId : billRecord[0].id});
+          console.log(dues);
+        }
+      }
+      // console.log(dues);
+      getBill();
+
+  },[bill]);
+    
+  // useEffect(() => {
+  //   const getBill = async () => {
+  //     const data = await getDocs(billCollectionRef);
+  //     const billRecord = data.docs.filter(roomFilter);
+  //     if(billRecord.length > 0){
+  //       setDues({...billRecord[0].data, docId : billRecord[0].id});
+  //       console.log(dues);
+  //     }
+  //   }
+  //   console.log(dues);
+  //   getBill();
+  // },[bill]);
+
     const logout = async () => {
         await signOut(auth);
+        localStorage.removeItem('staff');
          navigate('/');
       };
 
-   
-    // const ff = (doc) => {
-    //     return doc.data().email_id == guestEmail
-    // }
+    const updateStatus = (e) => {
+      console.log(e.target.value);
+      if(e.target.value === "--select status--"){
+        setSelectedStatus(null);
+      }
+      else{
+        setSelectedStatus(e.target.value);
+      }
+    }
 
-    // const [user, setUser] = useState(null);
-    // useEffect(()=>{
-    //     // localStorage.setItem('guest',JSON.stringify(guestDetails));
-    //     const getUser = async ()=>{
-    //         const data  = await getDocs(usersCollectionRef);
-    //         const user = data.docs.filter(ff)[0].data();
-    //         localStorage.setItem('guest',JSON.stringify({
-    //             name : user.name,
-    //             noOfGuests : user.no_of_guests,
-    //             roomNo : user.room_number,
-    //             email : user.email
-    //         }));
-    //         console.log(localStorage.getItem('guest'));
-    //         // data.docs.map((doc) => {console.log(doc.data())});
-    //         // const user = data.docs.filter(ff)[0].data();
-    //         // setUser(user);
-    //         // GUEST.NAME = user.name;
-    //         // GUEST.GENDER = user.gender;
-    //         // GUEST.NO_OF_GUESTS = user.no_of_guests;
-    //         // GUEST.ROOM_NO = user.room_number;
-    //     };
-    //     getUser();
+    const handleBill = (e) => {
+      setBill(e.target.value);
+    }
 
-    // },[]);
+    const updateStaffRecord = async(status) => {
+      const Doc = doc(db,"staff",JSON.parse(localStorage.getItem('staff')).docId);
+      const newfields = {status : status};
+      await updateDoc(Doc, newfields);
+    }
+    
+    const updateServiceRecord = async (status) => {
+      const Doc = doc(db,"servicerecord",Assignments.docId);
+      const newfields = {status : status};
+      await updateDoc(Doc, newfields);
+    }
+
+    const updateBillRecord = async () => {
+      const Doc = doc(db,"billrecord",dues.docId);
+      const newfields = {due : Number(bill) + Number(dues.due)};
+      await updateDoc(Doc,newfields);
+      window.location.reload();
+      // updateStaffRecord(STAFF_STATUS.AVAILABLE);
+    }
+    
+    const handleSubmit = () => {
+      // console.log(e.target.value);
+      // if(e.target.value)
+      if(selectedStatus === STAFF_SERVICE_STATUS.COMPLETED){
+        // updateStaffRecord(STAFF_STATUS.AVAILABLE);
+        updateServiceRecord(selectedStatus);
+        updateStaffRecord(STAFF_STATUS.AVAILABLE);
+        updateBillRecord();
+      }
+      else{
+        updateServiceRecord(selectedStatus);
+      }
+    }
 
 
-    // const handleService = (e) => {
-    //     if(e.target.value==="--select service--"){
-    //         setSelectedService(null);
-    //     }
-    //     else{
-    //         setSelectedService(e.target.value);
-    //     }
-    // }
-
-    // const handleComplaint = (e) => {
-    //     setComplaint(e.target.value);
-    // }
-
-    // const getRoom = () => {
-    //     if(localStorage.getItem('guest')){
-    //         console.log("room no = " + JSON.parse(localStorage.getItem('guest')).roomNo)
-    //         return JSON.parse(localStorage.getItem('guest')).roomNo;
-    //     }
-    //     else{
-    //         return null;
-    //     }
-    // }
-
-    // const getCount = () => {
-    //     if(localStorage.getItem('guest')){  
-    //         console.log("count = " + JSON.parse(localStorage.getItem('guest')).noOfGuests);
-
-    //         return JSON.parse(localStorage.getItem('guest')).noOfGuests;
-    //     }
-    //     else{
-    //         return null;
-    //     }
-    // }
-    // if(snapshot.empty){
-    //     console.log('No matching documents');
-    //     return;
-    // }
-    // snapshot.forEach(doc => {
-    //     console.log(doc.id, '=>', doc.data());
-    // });
-    // onSnapshot(q, (snapshot) => {
-    //     let books = []
-    //     snapshot.docs.forEach((doc) =>{
-    //         books.push({ ...doc.data(), id: doc.id})
-    //     })
-    //     console.log(books)
-    // })
-
-    // const createServiceReq = async() => {
-    //     await addDoc(servicerecordCollectionRef, {description:selected_service, from_room:GUEST.ROOM_NO, guest_email:GUEST.EMAIL_ID, request_from:GUEST.NAME, service_id:++maxServiceId, status:"Requested"});
-    // }
-    // const createComplaintReq = async() => {
-    //     await addDoc(complaintrecordCollectionRef, {complaint_id:maxComplaintId, description:complaint, from_email:GUEST.EMAIL_ID, from_room:GUEST.ROOM_NO, reply:"", status:"Active"});
-    // }
-
-    return(
+    if(work){
+      return(
         <div>
             <StaffPortalHeader />
-            <button onClick={logout} class="button logout__submit">
-    <span class="button__text">Log Out</span>
-    
-    </button> 
-           
+            <div>
+                <div >
+                  <h2 className='h1center'> Current Work Assigned</h2>
+                  <Form style={{marginLeft:'5%'}}>
+                      <FormGroup  row>
+                          <Label id="roomnumber" md={2}><b>Room No.</b></Label>
+                          <Col md={1}>
+                              <Input disabled value= {Assignments.from_room}/>
+                          </Col>
+                      </FormGroup>
+                      <FormGroup row >
+                          <Label md={2}><b>Service</b></Label>
+                          <Col md={2}>
+                              <Input disabled value={Assignments.description}/>
+                          </Col>
+                      </FormGroup>
+                  </Form>
+                </div>
+                  <div style={{marginLeft:'5%'}}>
+                    <Form >
+                        <FormGroup row >
+                            <Label  md={2}><b>Update Status</b></Label>
+                            <Col md={2}>
+                                <select value={selectedStatus} onChange={updateStatus}>
+                                    <option>--select status--</option>
+                                    {Object.values(STAFF_SERVICE_STATUS).map(displaydata => (
+                                        <option >{displaydata}</option>
+                                    ))}
+                                </select>
+                            </Col>
+                            {/* <Col>
+                                <Button size='m' variant='primary' disabled={!selectedStatus} onClick={handleStatusChange}>Submit</Button>
+                            </Col> */}
+                        </FormGroup>
+                        <FormGroup row>
+                            <Label  md={2}><b>Add Bill</b></Label>
+                            <Col  md={2}>
+                                <Input value={bill} type="number" placeholder="Enter Bill Here" onChange={handleBill}/>
+                            </Col>
+                            <Col>
+                                <Button size='m' variant='primary' disabled={!bill || !selectedStatus} onClick={handleSubmit}>Submit and Update Status</Button>
+                            </Col>
+                        </FormGroup>
+                    </Form>
+                  </div>
+              </div>
+            
+              <button onClick={logout} class="button logout__submit">
+                <span class="button__text">Log Out</span>
+              </button> 
         </div>
     );
+    }
+    else{
+      return(
+        <div>
+        <StaffPortalHeader />
+        <h2>No work Assigned</h2>
+        <button onClick={logout} class="button logout__submit">
+                <span class="button__text">Log Out</span>
+              </button> 
+      </div>
+      );
+      
+    }
+    
 }
 
 export default Staff;
@@ -169,53 +292,53 @@ export default Staff;
 //             return(
 //                 <div>
 //                     <StaffPortalHeader/>
-//                     <div>
-//                         <div >
-//                         <h2 className='h1center'> Current Work Assigned</h2>
-//                         <Form style={{marginLeft:'5%'}}>
-//                             <FormGroup  row>
-//                                 <Label id="roomnumber" md={2}><b>Room No.</b></Label>
-//                                 <Col md={1}>
-//                                     <Input disabled value={this.state.roomno}/>
-//                                 </Col>
-//                             </FormGroup>
-//                             <FormGroup row >
-//                                 <Label md={2}><b>Service</b></Label>
-//                                 <Col md={1}>
-//                                     <Input disabled value={this.state.service}/>
-//                                 </Col>
-//                             </FormGroup>
-//                         </Form>
-//                     </div>
-//                     <div style={{marginLeft:'5%'}}>
-//                         <Form >
-//                             <FormGroup row >
-//                                 <Label  md={2}><b>Update Status</b></Label>
-//                                 <Col md={2}>
-//                                     <select disabled={!this.state.roomno} value={this.state.selected_status} onChange={this.handleStatus}>
-//                                         <option>--select status--</option>
-//                                         {Object.values(SERVICE_STATUS).map(displaydata => (
-//                                             <option >{displaydata}</option>
-//                                         ))}
-//                                     </select>
-//                                 </Col>
-//                                 <Col>
-//                                     <Button size='m' variant='primary' disabled={!this.state.selected_status}>Submit</Button>
-//                                 </Col>
-//                             </FormGroup>
-//                             <FormGroup row>
-//                                 <Label  md={2}><b>Add Bill</b></Label>
-//                                 <Col  md={2}>
-//                                     <Input value={this.state.bill} type="number" placeholder="Enter Bill Here" onChange={this.handleBill}/>
-//                                 </Col>
-//                                 <Col>
-//                                     <Button size='m' variant='primary' disabled={!this.state.bill}>Submit</Button>
-//                                 </Col>
-//                             </FormGroup>
-//                         </Form>
-//                     </div>
+                  //   <div>
+                  //       <div >
+                  //       <h2 className='h1center'> Current Work Assigned</h2>
+                  //       <Form style={{marginLeft:'5%'}}>
+                  //           <FormGroup  row>
+                  //               <Label id="roomnumber" md={2}><b>Room No.</b></Label>
+                  //               <Col md={1}>
+                  //                   <Input disabled value="ff"/>
+                  //               </Col>
+                  //           </FormGroup>
+                  //           <FormGroup row >
+                  //               <Label md={2}><b>Service</b></Label>
+                  //               <Col md={1}>
+                  //                   <Input disabled value="ff"/>
+                  //               </Col>
+                  //           </FormGroup>
+                  //       </Form>
+                  //   </div>
+                  //   <div style={{marginLeft:'5%'}}>
+                  //       <Form >
+                  //           <FormGroup row >
+                  //               <Label  md={2}><b>Update Status</b></Label>
+                  //               <Col md={2}>
+                  //                   <select disabled='false' value='ff'>
+                  //                       <option>--select status--</option>
+                  //                       {Object.values(SERVICE_STATUS).map(displaydata => (
+                  //                           <option >{displaydata}</option>
+                  //                       ))}
+                  //                   </select>
+                  //               </Col>
+                  //               <Col>
+                  //                   <Button size='m' variant='primary' disabled='false'>Submit</Button>
+                  //               </Col>
+                  //           </FormGroup>
+                  //           <FormGroup row>
+                  //               <Label  md={2}><b>Add Bill</b></Label>
+                  //               <Col  md={2}>
+                  //                   <Input value="ff" type="number" placeholder="Enter Bill Here" onChange={this.handleBill}/>
+                  //               </Col>
+                  //               <Col>
+                  //                   <Button size='m' variant='primary' disabled={!this.state.bill}>Submit</Button>
+                  //               </Col>
+                  //           </FormGroup>
+                  //       </Form>
+                  //   </div>
                     
-//                     </div>
+                  //  </div>
 //                 </div>
 //             );
 //         // }

@@ -20,8 +20,14 @@ export const SERVICE_STATUS = {
     COMPLETED : "Completed"
 };
 
+export const STAFF_SERVICE_STATUS = {
+    // UNDER_PROGRESS : "Under Progress",
+    COMPLETED : "Completed"
+};
+
 export const SERVICES = {
     LAUNDRY : "LAUNDRY",
     SPA : "SPA",
-    HOUSE_KEEPING : "HOUSE KEEPING"
+    HOUSE_KEEPING : "HOUSE KEEPING",
+    RESTAURANT : "RESTAURANT"
 };

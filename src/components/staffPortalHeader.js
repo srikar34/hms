@@ -23,13 +23,14 @@ function StaffPortalHeader() {
             // data.docs.map((doc) => {console.log(doc.data())});
             const temp = data.docs.filter(ff)[0].data();
             
-            console.log(temp);
+            // console.log(temp);
             localStorage.setItem('staff',JSON.stringify({
                 name : temp.name,
                 email : temp.email,
                 division : temp.division,
                 empId : temp.emp_id
             }));
+            console.log(JSON.parse(localStorage.getItem('staff')));
             // setUser(temp);
             // console.log("user = ");
             // console.log(user.name);

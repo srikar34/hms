@@ -41,7 +41,7 @@ function ClosedComplaints(){
                     {complaints.map((complaint) =>
                         (
                             // const status = complaint.status;
-                            <tr hidden={(complaint.status==COMPLAINT_STATUS.ACTIVE)}>
+                            <tr hidden={(complaint.status===COMPLAINT_STATUS.ACTIVE)}>
                             <th>{complaint.from_room}</th>
                             <th>{complaint.from_email}</th>
                             <th>{complaint.complaint_id}</th>

@@ -21,18 +21,6 @@ import {
 function Guest() {
     const navigate = useNavigate();
 
-    // const getGuestDetails = () => {
-    //     var temp = localStorage.getItem('guest');
-    //     if(temp){
-    //         console.log("initializing");
-    //         console.log(temp);
-    //         return JSON.parse(localStorage.getItem('guest'));
-    //     }
-    //     else{
-    //         return null;
-    //     }
-    //     // return localStorage.getItem('guest') ? JSON.parse(localStorage.getItem('guest')) : null
-    // }
 
     const [selected_service,setSelectedService] = useState(null);
     const [complaint,setComplaint] = useState(null);
@@ -47,6 +35,7 @@ function Guest() {
     
     const logout = async () => {
         await signOut(auth);
+        localStorage.removeItem('guest');
          navigate('/');
       };
 
