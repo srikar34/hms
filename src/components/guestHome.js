@@ -97,7 +97,7 @@ function Guest() {
                 name : user.name,
                 noOfGuests : user.no_of_guests,
                 roomNo : user.room_number,
-                email : user.email
+                email : user.email_id
             }));
             console.log(localStorage.getItem('guest'));
             // data.docs.map((doc) => {console.log(doc.data())});
