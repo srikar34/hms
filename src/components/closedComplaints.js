@@ -50,13 +50,6 @@ function ClosedComplaints(){
                     ))}
                     </tbody>
                 </Table>
-                <br/>
-
-                <div >
-                    <Button size='lg' variant='primary'  >Update Status</Button>
-                </div>
-
-                <br/>
             </div>
         ); 
 }

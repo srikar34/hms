@@ -12,8 +12,11 @@ import {
     doc,
   } from "firebase/firestore";
 import { COMPLAINT_STATUS } from '../assets/statusValues';
+import ChangeComplaintStatus from './changeComplaintStatus';
 
 function ActiveComplaints(){
+         const [visible, setVisible] = useState(false);
+        // setVisible(false);
         const [complaints,setComplaints]=useState([]);
         const complaintsCollectionRef = collection(db, "complaintrecord");
         useEffect(()=>{
@@ -53,8 +56,12 @@ function ActiveComplaints(){
                 <br/>
 
                 <div >
-                    <Button size='lg' variant='primary'  >Update Status</Button>
+                    <Button onClick={() => (setVisible(true))} disabled={visible} size='lg' variant='primary'  >Update Status</Button>
                 </div>
+                <br/>
+                 <div>
+                    {visible ? <ChangeComplaintStatus /> : null }
+                 </div>
 
                 <br/>
             </div>
