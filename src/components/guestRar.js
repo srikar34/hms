@@ -27,9 +27,9 @@ function GuestRar () {
     const ratingsCollectionRef = collection(db, "ratings");
     const createRating = () => {
         const obj = {from_email: JSON.parse(localStorage.getItem('guest')).email,
-               from_room: JSON.parse(localStorage.getItem('guest')).roomNo,
+               from_room: Number(JSON.parse(localStorage.getItem('guest')).roomNo),
                name: JSON.parse(localStorage.getItem('guest')).name,
-               rating: rating,
+               rating: Number(rating),
                review: feedback
             }
         console.log(obj);
