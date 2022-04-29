@@ -38,7 +38,7 @@ export default function GuestServices () {
             <GuestPortalHeader />
             <br/>
             <h1>Service Requests</h1>
-            <Table striped bordered hover size="sm">
+            <Table striped bordered hover size="sm" variant='light'>
                 <thead>
                     <tr>
                     <th>Service ID</th>
@@ -66,7 +66,7 @@ export default function GuestServices () {
             {/* <h1>Completed Service Requests</h1> */}
             {/* </Table> */}
                 <h1>Completed Service Requests</h1>
-                <Table striped bordered hover size="sm">
+                <Table striped bordered hover size="sm" variant='light'>
                     <thead>
                         <tr>
                         <th>Service ID</th>

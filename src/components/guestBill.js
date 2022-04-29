@@ -10,7 +10,7 @@ class Services extends Component {
                 <GuestPortalHeader />
                 <br/>
                 <h1>Bill Details</h1>
-                <Table striped bordered hover size="sm">
+                <Table striped bordered hover size="sm" variant='light'>
                     <thead>
                         <tr>
                         <th>Bill no.</th>

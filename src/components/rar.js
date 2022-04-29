@@ -28,7 +28,7 @@ function Rar(){
                 <ManagerPortalHeader />
                 <br/>
                 <h1>Ratings and Reviews</h1>
-                <Table striped bordered hover size="sm">
+                <Table striped bordered hover size="sm" variant='light'>
                     <thead>
                         <tr>
                         <th>Guest Name</th>
