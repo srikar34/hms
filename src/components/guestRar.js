@@ -35,6 +35,8 @@ function GuestRar () {
         console.log(obj);
         createRatingRecord(obj);
         reset();
+        window.alert('Rating and Review submitted successfully');
+        window.location.reload();
     }
     const createRatingRecord = async (record) => {
         await addDoc(ratingsCollectionRef, record);

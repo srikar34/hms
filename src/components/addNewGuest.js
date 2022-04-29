@@ -43,6 +43,7 @@ function Rooms(){
         createNewGuest();
         createNewRoomRecord();
         createNewBillRecord();
+        window.alert('Guest Admitted Successfully and Room allocated');
     }
 
     const register = async () => {

@@ -37,6 +37,7 @@ function Login() {
       navigate("/guest");
     } catch (error) {
       console.log(error.message);
+      window.alert(error.message);
     }
   };
 
