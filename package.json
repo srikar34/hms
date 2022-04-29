@@ -9,6 +9,7 @@
     "bootstrap": "^5.1.3",
     "express": "^4.17.3",
     "firebase": "^9.6.11",
+    "firebaseui": "^6.0.1",
     "react": "^18.0.0",
     "react-awesome-button": "^6.5.1",
     "react-bootstrap": "^2.2.3",

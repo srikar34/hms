@@ -1,7 +1,8 @@
 import React, { Component, useEffect } from 'react'; 
+import { useNavigate } from "react-router-dom";
 import GuestPortalHeader from './guestPortalHeader';
 import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { Form, FormGroup, Col, Label, Input} from 'reactstrap';
 import { SERVICES } from '../assets/statusValues';
 import { async } from '@firebase/util';
@@ -9,9 +10,16 @@ import { getDocs, addDoc, collection, query, where, onSnapshot } from "firebase/
 import {db} from "../firebase-config";
 import { GUEST } from '../assets/guestDetails';
 import { useState } from 'react';
-import { guestEmail } from './login';
-
+import { guestEmail,userEmail } from './login';
+import { auth } from "../firebase-config";
+import {
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut,
+  } from "firebase/auth";
+  
 function Guest() {
+    const navigate = useNavigate();
 
     // const getGuestDetails = () => {
     //     var temp = localStorage.getItem('guest');
@@ -34,6 +42,12 @@ function Guest() {
     const usersCollectionRef = collection(db, "users");
     const servicerecordCollectionRef = collection(db, "servicerecord");
     const complaintrecordCollectionRef = collection(db, "complaintrecord");
+
+    
+    const logout = async () => {
+        await signOut(auth);
+         navigate('/');
+      };
 
     // const events = db.child('servicerecord');
     // const query = events
@@ -85,7 +99,7 @@ function Guest() {
                 roomNo : user.room_number,
                 email : user.email
             }));
-            // console.log(localStorage.getItem('guest'));
+            console.log(localStorage.getItem('guest'));
             // data.docs.map((doc) => {console.log(doc.data())});
             // const user = data.docs.filter(ff)[0].data();
             // setUser(user);
@@ -114,7 +128,7 @@ function Guest() {
 
     const getRoom = () => {
         if(localStorage.getItem('guest')){
-            // console.log("room no = " + JSON.parse(localStorage.getItem('guest')).roomNo)
+            console.log("room no = " + JSON.parse(localStorage.getItem('guest')).roomNo)
             return JSON.parse(localStorage.getItem('guest')).roomNo;
         }
         else{
@@ -124,7 +138,7 @@ function Guest() {
 
     const getCount = () => {
         if(localStorage.getItem('guest')){  
-            // console.log("count = " + JSON.parse(localStorage.getItem('guest')).noOfGuests);
+            console.log("count = " + JSON.parse(localStorage.getItem('guest')).noOfGuests);
 
             return JSON.parse(localStorage.getItem('guest')).noOfGuests;
         }
@@ -207,126 +221,13 @@ function Guest() {
                     Contact Helpline?
                 </Link>
             </div>
+            <button onClick={logout} class="button logout__submit">
+    <span class="button__text">Log Out</span>
+    
+    </button> 
+           
         </div>
     );
 }
-
-// class Guest extends Component {
-
-//     constructor(props){
-//         super(props);
-//         this.serviceMaxid = 3;
-//         this.servicerecordCollectionRef = collection(db, "servicerecord");
-//         this.createServiceReq = this.createServiceReq.bind(this);
-//         console.log(GUEST.EMAIL_ID);
-//         this.guest_record = query(this.servicerecordCollectionRef, where("email_id","==","chandrakanth@gmail.com")).get();
-//         if(this.guest_record.empty){
-//             console.log("ff");
-//         }
-//         else{
-//             this.querySnapshot = getDocs(this.guest_record);
-//         this.querySnapshot = this.querySnapshot.map(snap => snap.data());
-//         this.querySnapshot.forEach((doc) => {
-//             // doc.data() is never undefined for query doc snapshots
-//             console.log(doc.id, " => ", doc.data());
-//         });
-//         }
-        
-//         GUEST.NAME = this.guest_record.name;
-//         GUEST.GENDER = this.guest_record.gender;
-//         GUEST.ROOM_NO = this.guest_record.room_number;
-//         GUEST.NO_OF_GUESTS = this.guest_record.no_of_guests;
-        
-//         console.log(GUEST.NAME+" "+GUEST.GENDER+" "+GUEST.ROOM_NO+" ff "+GUEST.NO_OF_GUESTS);
-//         this.state = {
-//             selected_service : null,
-//             complaint : null,
-//         };
-        
-//         this.handleComplaint = this.handleComplaint.bind(this);
-//         this.handleService  = this.handleService.bind(this);
-//     }
-//     createServiceReq = async() => {
-//         await addDoc(this.servicerecordCollectionRef, {description:this.state.selected_service, from_room:GUEST.ROOM_NO, guest_email:GUEST.EMAIL_ID, request_from:GUEST.NAME, service_id:++this.serviceMaxid, status:"requested"});
-//     }
-//     handleComplaint(e){
-//         this.setState({
-//             complaint : e.target.value
-//         });
-//     }
-
-//     handleService(e){
-//         console.log(e.target.value);
-//         if(e.target.value==="--select service--"){
-//             this.setState({
-//                 selected_service : null
-//             });
-//         }
-//         else{
-//             this.setState({
-//                 selected_service : e.target.value
-//             });
-//         }   
-//     }
-
-//     render(){
-//         return(
-//             <div>
-//                 <GuestPortalHeader />
-//                 <div >
-//                     <h2 className='h1center'> Current Booking Details</h2>
-//                     <Form style={{marginLeft:'5%'}}>
-//                         <FormGroup  row>
-//                             <Label id="roomnumber" md={2}><b>Room No.</b></Label>
-//                             <Col md={1}>
-//                                 <Input disabled value={GUEST.ROOM_NO}/>
-//                             </Col>
-//                         </FormGroup>
-//                         <FormGroup row >
-//                             <Label id="guests" md={2}><b>No. of Guests</b></Label>
-//                             <Col md={1}>
-//                                 <Input disabled value={GUEST.NO_OF_GUESTS}/>
-//                             </Col>
-//                         </FormGroup>
-//                     </Form>
-//                 </div>
-//                 <br/>
-//                 <div style={{marginLeft:'5%'}}>
-//                     <Form >
-//                         <FormGroup row >
-//                             <Label  md={2}><b>Need a Service?</b></Label>
-//                             <Col md={2}>
-//                                 <select value={this.state.selected_service} onChange={this.handleService}>
-//                                     <option selected>--select service--</option>
-//                                     {Object.values(SERVICES).map(displaydata => (
-//                                         <option >{displaydata}</option>
-//                                     ))}
-//                                 </select>
-//                             </Col>
-//                             <Col>
-//                                 <Button size='m' variant='primary' disabled={!this.state.selected_service} onClick={this.createServiceReq}>Submit</Button>
-//                             </Col>
-//                         </FormGroup>
-//                     </Form>
-//                     <Form >
-//                         <FormGroup  row>
-//                             <Label md={2}><b>Have a Complaint?</b></Label>
-//                             <Col md={5} >
-//                                 <Input rows="2" type="textarea" value={this.state.complaint} placeholder="type your complaint here" onChange={this.handleComplaint}/>
-//                             </Col>
-//                             <Col>
-//                                 <Button size='m' variant='primary' disabled={!this.state.complaint}>Submit</Button>
-//                             </Col>
-//                         </FormGroup>
-//                     </Form>
-//                     <Link to='/guest/contact'>
-//                         Contact Helpline?
-//                     </Link>
-           
-//                 </div>
-//             </div>
-//         );
-//     }
-// }
 
 export default Guest;
