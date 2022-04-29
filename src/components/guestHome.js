@@ -4,9 +4,9 @@ import GuestPortalHeader from './guestPortalHeader';
 import { Button } from 'react-bootstrap';
 import { Link, Navigate } from 'react-router-dom';
 import { Form, FormGroup, Col, Label, Input} from 'reactstrap';
-import { COMPLAINT_STATUS, SERVICES, SERVICE_STATUS } from '../assets/statusValues';
+import { COMPLAINT_STATUS, SERVICES, SERVICE_STATUS, STAFF_STATUS } from '../assets/statusValues';
 import { async } from '@firebase/util';
-import { getDocs, addDoc, collection, query, where, onSnapshot } from "firebase/firestore";
+import { doc,updateDoc,getDocs, addDoc, collection, query, where, onSnapshot } from "firebase/firestore";
 import {db} from "../firebase-config";
 import { GUEST } from '../assets/guestDetails';
 import { useState } from 'react';
@@ -39,40 +39,6 @@ function Guest() {
          navigate('/');
       };
 
-    // const events = db.child('servicerecord');
-    // const query = events
-    //                 .orderByChild('email_id')
-    //                 .equalTo(GUEST.EMAIL_ID);
-    // console.log(guestEmail);
-    // console.log(query);
-    // const getUser = async () => {
-    //     const q = await query(usersCollectionRef,where("email_id", "==", GUEST.EMAIL_ID));
-    //     // const q = await usersCollectionRef.where("email_id", "==", GUEST.EMAIL_ID).get();
-    //     if(q.docs){
-    //         console.log(q.docs);
-    //     }
-        
-        // console.log("ff");
-        // q.docs.map((doc) => {
-        // GUEST.NAME = doc.name;
-        // GUEST.GENDER = doc.gender;
-        // GUEST.NO_OF_GUESTS = doc.no_of_guest;
-        // GUEST.ROOM_NO = doc.room_number;
-        // console.log(GUEST);
-    // });
-    // }
-    // getUser();
-    
-    
-    // console.log(q.docs);
-    // q.docs.map((doc) => {
-    //     GUEST.NAME = doc.name;
-    //     GUEST.GENDER = doc.gender;
-    //     GUEST.NO_OF_GUESTS = doc.no_of_guest;
-    //     GUEST.ROOM_NO = doc.room_number;
-    // });
-
-    // console.log(GUEST);
     const ff = (doc) => {
         return doc.data().email_id == guestEmail
     }
@@ -159,8 +125,63 @@ function Guest() {
         setSelectedService(null);
     }
 
+    // const filt = (doc) => {
+    //     console.log(this);
+    //     console.log(doc.data());
+    //     return doc.data().status === STAFF_STATUS.AVAILABLE && doc.data().division === this
+    // }
+
+    function filt(div){
+        return function(doc) {
+            console.log(doc.data());
+            console.log(div);
+            return doc.data().status === STAFF_STATUS.AVAILABLE && doc.data().division === div
+        }
+    }
+
+    const filterSR = (doc) => {
+        return doc.data() === this
+    }
+
     const createServiceReq = async(obj) => {
+        console.log("obj = ");
+        console.log(obj);
         await addDoc(servicerecordCollectionRef,obj);
+
+        const staffCollectionRef = collection(db, "staff");
+        const data  = await getDocs(staffCollectionRef);
+        // const availableStaff = data.docs.filter(filt(obj.selected_service));
+        const availableStaff = data.docs.filter((doc) => {
+            return (doc.data().status === STAFF_STATUS.AVAILABLE && doc.data().division === obj.description)});
+        console.log(availableStaff.length)
+        // console.log(availableStaff[0].data());    
+        if(availableStaff.length > 0){
+            
+            const idx = Math.floor(Math.random()*availableStaff.length);
+            console.log(idx);
+            console.log(availableStaff[idx].data());
+            const StaffName = availableStaff[idx].data().name;
+            console.log(StaffName);
+            const record = doc(db,"staff",availableStaff[idx].id);
+            const newfields = {status : STAFF_STATUS.BUSY};
+            await updateDoc(record,newfields);
+
+            const serviceRecords = await getDocs(servicerecordCollectionRef);
+            console.log("test sttatement")
+            //console.log(doc.data());
+            console.log(obj);
+            const servs = serviceRecords.docs.filter((doc) => {
+                // console.log(doc.data().request_from + " ff1 " + obj.request_from);
+                // console.log(doc.data().description  + " ff2 " + obj.description )
+                
+                return (doc.data().request_from === obj.request_from && doc.data().description === obj.description)});
+            console.log(servs.length);
+            console.log(servs);
+            const servRecord = doc(db,"servicerecord",servs[0].id);
+            const newFields = {status : SERVICE_STATUS.ASSIGNED, staff : StaffName};
+            await updateDoc(servRecord,newFields);
+
+        }
     }
     const createComplaintReq = async(obj) => {
         await addDoc(complaintrecordCollectionRef,obj);

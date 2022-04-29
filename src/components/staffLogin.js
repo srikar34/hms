@@ -48,6 +48,7 @@ function StaffLogin() {
     <input type="text" class="login__input" placeholder="Email"
       onChange={(event) => {
         staffEmail = event.target.value;
+        localStorage.setItem('staff', JSON.stringify({email : event.target.value}))
             setLoginEmail(event.target.value);
       }}
     />

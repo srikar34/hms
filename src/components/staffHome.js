@@ -30,7 +30,7 @@ function Staff() {
   const billCollectionRef = collection(db, "billrecord");
 
   const ff = (doc) => {
-      return doc.data().email_id === staffEmail
+      return doc.data().email_id === JSON.parse(localStorage.getItem('staff')).email
   }
 
   const filt = (doc) => {
@@ -60,7 +60,9 @@ function Staff() {
   useEffect(()=>{
         const getUser = async ()=>{
             const data  = await getDocs(staffCollectionRef);
+            
             const temp = {...data.docs.filter(ff)[0].data(),id : data.docs.filter(ff)[0].id};
+            console.log(temp);
             localStorage.setItem('staff',JSON.stringify({
                 name : temp.name,
                 email : temp.email_id,
@@ -96,33 +98,40 @@ function Staff() {
       }
       getWork();
 
-      const getBill = async () => {
-        const data = await getDocs(billCollectionRef);
-        const billRecord = data.docs.filter(roomFilter);
-        console.log(billRecord.length);
-        if(billRecord.length > 0){
-          console.log(billRecord[0].data());
-          setDues({...billRecord[0].data(), docId : billRecord[0].id});
-          console.log(dues);
-        }
-      }
-      // console.log(dues);
-      getBill();
+      // const getBill = async () => {
+      //   const data = await getDocs(billCollectionRef);
+      //   console.log("fffffffffff");
+      //   console.log(data.docs);
+      //   const billRecord = data.docs.filter(roomFilter);
+      //   console.log("bill record = ");
+      //   console.log(billRecord);
+      //   console.log(billRecord.length);
+      //   if(billRecord.length > 0){
+      //     console.log(billRecord[0].data());
+      //     setDues({...billRecord[0].data(), docId : billRecord[0].id});
+      //     console.log(dues);
+      //   }
+      // }
+      // // console.log(dues);
+      // getBill();
 
-  },[bill]);
+  },[]);
+
+  // useEffect() 
     
-  // useEffect(() => {
-  //   const getBill = async () => {
-  //     const data = await getDocs(billCollectionRef);
-  //     const billRecord = data.docs.filter(roomFilter);
-  //     if(billRecord.length > 0){
-  //       setDues({...billRecord[0].data, docId : billRecord[0].id});
-  //       console.log(dues);
-  //     }
-  //   }
-  //   console.log(dues);
-  //   getBill();
-  // },[bill]);
+  useEffect(() => {
+    const getBill = async () => {
+      const data = await getDocs(billCollectionRef);
+      const billRecord = data.docs.filter(roomFilter);
+      // console.log(billRecord[0].data());
+      if(billRecord.length > 0){
+        setDues({...billRecord[0].data(), docId : billRecord[0].id});
+        console.log(dues);
+      }
+    }
+    console.log(dues);
+    getBill();
+  },[bill]);
 
     const logout = async () => {
         await signOut(auth);
@@ -160,11 +169,11 @@ function Staff() {
       const Doc = doc(db,"billrecord",dues.docId);
       const newfields = {due : Number(bill) + Number(dues.due)};
       await updateDoc(Doc,newfields);
-      window.location.reload();
+      // window.location.reload();
       // updateStaffRecord(STAFF_STATUS.AVAILABLE);
     }
     
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
       // console.log(e.target.value);
       // if(e.target.value)
       if(selectedStatus === STAFF_SERVICE_STATUS.COMPLETED){
@@ -172,6 +181,27 @@ function Staff() {
         updateServiceRecord(selectedStatus);
         updateStaffRecord(STAFF_STATUS.AVAILABLE);
         updateBillRecord();
+
+        const data = await getDocs(servicerecordCollectionRef);
+
+        const pendingRequests = data.docs.filter((doc) => 
+        doc.data().description === JSON.parse(localStorage.getItem('staff')).division
+        && 
+        doc.data().status === SERVICE_STATUS.REQUESTED )
+        console.log("pending requests = ");
+        console.log(pendingRequests);
+        if(pendingRequests.length > 0){
+          const idx = Math.floor(Math.random()*pendingRequests.length);
+          const record = doc(db, "staff",JSON.parse(localStorage.getItem('staff')).docId);
+          const newfields = {status : STAFF_STATUS.BUSY};
+          await updateDoc(record,newfields);
+
+          const servRecord = doc(db,"servicerecord",pendingRequests[idx].id);
+          const newFields = {status : SERVICE_STATUS.ASSIGNED , staff : JSON.parse(localStorage.getItem('staff')).name};
+          await updateDoc(servRecord,newFields);
+        }
+
+
       }
       else{
         updateServiceRecord(selectedStatus);
