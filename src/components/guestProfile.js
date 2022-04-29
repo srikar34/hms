@@ -8,9 +8,9 @@ class GuestProfile extends Component {
         return(
             <div>
                 <GuestPortalHeader/>
-                <div className='.h1'>
+                <h1 className='h1center'>
                     Your Profile
-                </div>
+                </h1>
                 <div className='center'>
                     <div>
                         <Button size='m' variant='outline-primary' >Save</Button>

@@ -1,8 +1,8 @@
 export const ROOM_STATUS ={
-    UNDER_MAINTENANCE : "Under Maintenance",
-    AVAILABLE : "Available",
-    OCCUPIED : "Occupied",
-    RESERVED : "Reserved"
+    UNDER_MAINTENANCE : "UNDER MAINTENANCE",
+    AVAILABLE : "AVAILABLE",
+    OCCUPIED : "OCCUPIED",
+    RESERVED : "RESERVED"
 };
 
 export const COMPLAINT_STATUS = {
@@ -21,7 +21,7 @@ export const SERVICE_STATUS = {
 };
 
 export const SERVICES = {
-    LAUNDRY : "Laundry",
-    SPA : "Spa",
-    HOUSE_KEEPING : "House Keeping",
+    LAUNDRY : "LAUNDRY",
+    SPA : "SPA",
+    HOUSE_KEEPING : "HOUSE KEEPING"
 };

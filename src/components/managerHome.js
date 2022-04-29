@@ -1,6 +1,7 @@
 import React, { Component } from 'react'; 
 import ManagerPortalHeader from './managerPortalHeader';
 
+
 class Manager extends Component {
     render(){
         return(

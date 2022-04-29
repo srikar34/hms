@@ -20,9 +20,23 @@ import {
   
 function Guest() {
     const navigate = useNavigate();
+
+    // const getGuestDetails = () => {
+    //     var temp = localStorage.getItem('guest');
+    //     if(temp){
+    //         console.log("initializing");
+    //         console.log(temp);
+    //         return JSON.parse(localStorage.getItem('guest'));
+    //     }
+    //     else{
+    //         return null;
+    //     }
+    //     // return localStorage.getItem('guest') ? JSON.parse(localStorage.getItem('guest')) : null
+    // }
+
     const [selected_service,setSelectedService] = useState(null);
     const [complaint,setComplaint] = useState(null);
-
+    // const [guestDetails, setGuestDetails] = useState(getGuestDetails());
     var maxServiceId = 3;
     var maxComplaintId = 3;
     const usersCollectionRef = collection(db, "users");
@@ -39,7 +53,7 @@ function Guest() {
     // const query = events
     //                 .orderByChild('email_id')
     //                 .equalTo(GUEST.EMAIL_ID);
-    console.log(guestEmail);
+    // console.log(guestEmail);
     // console.log(query);
     // const getUser = async () => {
     //     const q = await query(usersCollectionRef,where("email_id", "==", GUEST.EMAIL_ID));
@@ -73,21 +87,31 @@ function Guest() {
         return doc.data().email_id == guestEmail
     }
 
-    const [user, setUser] = useState(null);
+    // const [user, setUser] = useState(null);
     useEffect(()=>{
+        // localStorage.setItem('guest',JSON.stringify(guestDetails));
         const getUser = async ()=>{
             const data  = await getDocs(usersCollectionRef);
-            data.docs.map((doc) => {console.log(doc.data())});
             const user = data.docs.filter(ff)[0].data();
-            setUser(user);
-            GUEST.NAME = user.name;
-            GUEST.GENDER = user.gender;
-            GUEST.NO_OF_GUESTS = user.no_of_guests;
-            GUEST.ROOM_NO = user.room_number;
+            localStorage.setItem('guest',JSON.stringify({
+                name : user.name,
+                noOfGuests : user.no_of_guests,
+                roomNo : user.room_number,
+                email : user.email
+            }));
+            // console.log(localStorage.getItem('guest'));
+            // data.docs.map((doc) => {console.log(doc.data())});
+            // const user = data.docs.filter(ff)[0].data();
+            // setUser(user);
+            // GUEST.NAME = user.name;
+            // GUEST.GENDER = user.gender;
+            // GUEST.NO_OF_GUESTS = user.no_of_guests;
+            // GUEST.ROOM_NO = user.room_number;
         };
         getUser();
+
     },[]);
-    console.log(user);
+
 
     const handleService = (e) => {
         if(e.target.value==="--select service--"){
@@ -102,6 +126,26 @@ function Guest() {
         setComplaint(e.target.value);
     }
 
+    const getRoom = () => {
+        if(localStorage.getItem('guest')){
+            // console.log("room no = " + JSON.parse(localStorage.getItem('guest')).roomNo)
+            return JSON.parse(localStorage.getItem('guest')).roomNo;
+        }
+        else{
+            return null;
+        }
+    }
+
+    const getCount = () => {
+        if(localStorage.getItem('guest')){  
+            // console.log("count = " + JSON.parse(localStorage.getItem('guest')).noOfGuests);
+
+            return JSON.parse(localStorage.getItem('guest')).noOfGuests;
+        }
+        else{
+            return null;
+        }
+    }
     // if(snapshot.empty){
     //     console.log('No matching documents');
     //     return;
@@ -133,13 +177,13 @@ function Guest() {
                     <FormGroup  row>
                         <Label id="roomnumber" md={2}><b>Room No.</b></Label>
                         <Col md={1}>
-                            <Input disabled value={GUEST.ROOM_NO}/>
+                            <Input disabled value={getRoom()}/>
                         </Col>
                     </FormGroup>
                     <FormGroup row >
                         <Label id="guests" md={2}><b>No. of Guests</b></Label>
                         <Col md={1}>
-                            <Input disabled value={GUEST.NO_OF_GUESTS}/>
+                            <Input disabled value={getCount()}/>
                         </Col>
                     </FormGroup>
                 </Form>

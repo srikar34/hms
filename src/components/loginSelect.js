@@ -14,13 +14,13 @@ class LoginSelect extends Component {
                 </div>
                 <br/>
                 <div >
-                    <Link to="/manager">    
+                    <Link to="/managerLogin">    
                         <Button size='lg' variant='outline-primary' >Manager Portal</Button>
                     </Link>
                 </div>
                 <br/>
                 <div >
-                    <Link to="/staff">    
+                    <Link to="/staffLogin">    
                         <Button size='lg' variant='outline-primary' >Staff Portal</Button>
                     </Link>
                 </div>
