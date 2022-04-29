@@ -51,8 +51,6 @@ function Login() {
     <div class="container"> <br/><div class="screen"> <br/><div class="screen__content">
     <input type="text" class="login__input" placeholder="Email"
       onChange={(event) => {
-        GUEST.EMAIL_ID = event.target.value;
-        console.log(GUEST.EMAIL_ID);
         guestEmail = event.target.value;
         setLoginEmail(event.target.value);
       }}

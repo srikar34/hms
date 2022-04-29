@@ -8,7 +8,7 @@ class NavBar extends Component {
             <div>
                 <Navbar bg="dark" variant="dark">
                     <Container>
-                        <Navbar.Brand href="#home">KAMAR TAJ welcomes YOU</Navbar.Brand>
+                        <Navbar.Brand href="#home">Hotel NOSTALGIA Welcomes You</Navbar.Brand>
                         {/* <Nav className="me-auto">
                             <Nav.Link href="#home">Home</Nav.Link>
                             <Nav.Link href="#features">Features</Nav.Link>

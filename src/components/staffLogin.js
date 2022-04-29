@@ -42,32 +42,29 @@ function StaffLogin() {
 
   return (
     <div className="App">
-      <div>
-        <h3> Login </h3>
-        <input
-
-          placeholder="Email..."
-          onChange={(event) => {
-            staffEmail = event.target.value;
-            // console.log(GUEST.EMAIL_ID);
+    <span>
+    <br/>
+    <div class="container"> <br/><div class="screen"> <br/><div class="screen__content">
+    <input type="text" class="login__input" placeholder="Email"
+      onChange={(event) => {
+        staffEmail = event.target.value;
             setLoginEmail(event.target.value);
-          }}
-        />
-        <input
-          placeholder="Password..."
-          onChange={(event) => {
-            setLoginPassword(event.target.value);
-          }}
-        />
+      }}
+    />
+    <input type="password" class="login__input" placeholder="Password"
+      onChange={(event) => {
+        setLoginPassword(event.target.value);
 
-        <button onClick={login}> Login</button>
-      </div>
+      }}
+    />
 
-      <h4> User Logged In: </h4>
-      {user?.email}
-      
-
-      <button onClick={logout}> Sign Out </button>
+    <button onClick={login} class="button login__submit">
+    <span class="button__text">Log In</span>
+    </button>  
+    </div></div></div>
+    </span>
+    <span class="hotelbrand">Welcome to Hotel Nostalgia</span>
+        
     </div>
   );
 }

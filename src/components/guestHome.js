@@ -46,7 +46,7 @@ function Guest() {
     
     const logout = async () => {
         await signOut(auth);
-         navigate('/login');
+         navigate('/');
       };
 
     // const events = db.child('servicerecord');
@@ -229,123 +229,5 @@ function Guest() {
         </div>
     );
 }
-
-// class Guest extends Component {
-
-//     constructor(props){
-//         super(props);
-//         this.serviceMaxid = 3;
-//         this.servicerecordCollectionRef = collection(db, "servicerecord");
-//         this.createServiceReq = this.createServiceReq.bind(this);
-//         console.log(GUEST.EMAIL_ID);
-//         this.guest_record = query(this.servicerecordCollectionRef, where("email_id","==","chandrakanth@gmail.com")).get();
-//         if(this.guest_record.empty){
-//             console.log("ff");
-//         }
-//         else{
-//             this.querySnapshot = getDocs(this.guest_record);
-//         this.querySnapshot = this.querySnapshot.map(snap => snap.data());
-//         this.querySnapshot.forEach((doc) => {
-//             // doc.data() is never undefined for query doc snapshots
-//             console.log(doc.id, " => ", doc.data());
-//         });
-//         }
-        
-//         GUEST.NAME = this.guest_record.name;
-//         GUEST.GENDER = this.guest_record.gender;
-//         GUEST.ROOM_NO = this.guest_record.room_number;
-//         GUEST.NO_OF_GUESTS = this.guest_record.no_of_guests;
-        
-//         console.log(GUEST.NAME+" "+GUEST.GENDER+" "+GUEST.ROOM_NO+" ff "+GUEST.NO_OF_GUESTS);
-//         this.state = {
-//             selected_service : null,
-//             complaint : null,
-//         };
-        
-//         this.handleComplaint = this.handleComplaint.bind(this);
-//         this.handleService  = this.handleService.bind(this);
-//     }
-//     createServiceReq = async() => {
-//         await addDoc(this.servicerecordCollectionRef, {description:this.state.selected_service, from_room:GUEST.ROOM_NO, guest_email:GUEST.EMAIL_ID, request_from:GUEST.NAME, service_id:++this.serviceMaxid, status:"requested"});
-//     }
-//     handleComplaint(e){
-//         this.setState({
-//             complaint : e.target.value
-//         });
-//     }
-
-//     handleService(e){
-//         console.log(e.target.value);
-//         if(e.target.value==="--select service--"){
-//             this.setState({
-//                 selected_service : null
-//             });
-//         }
-//         else{
-//             this.setState({
-//                 selected_service : e.target.value
-//             });
-//         }   
-//     }
-
-//     render(){
-//         return(
-//             <div>
-//                 <GuestPortalHeader />
-//                 <div >
-//                     <h2 className='h1center'> Current Booking Details</h2>
-//                     <Form style={{marginLeft:'5%'}}>
-//                         <FormGroup  row>
-//                             <Label id="roomnumber" md={2}><b>Room No.</b></Label>
-//                             <Col md={1}>
-//                                 <Input disabled value={GUEST.ROOM_NO}/>
-//                             </Col>
-//                         </FormGroup>
-//                         <FormGroup row >
-//                             <Label id="guests" md={2}><b>No. of Guests</b></Label>
-//                             <Col md={1}>
-//                                 <Input disabled value={GUEST.NO_OF_GUESTS}/>
-//                             </Col>
-//                         </FormGroup>
-//                     </Form>
-//                 </div>
-//                 <br/>
-//                 <div style={{marginLeft:'5%'}}>
-//                     <Form >
-//                         <FormGroup row >
-//                             <Label  md={2}><b>Need a Service?</b></Label>
-//                             <Col md={2}>
-//                                 <select value={this.state.selected_service} onChange={this.handleService}>
-//                                     <option selected>--select service--</option>
-//                                     {Object.values(SERVICES).map(displaydata => (
-//                                         <option >{displaydata}</option>
-//                                     ))}
-//                                 </select>
-//                             </Col>
-//                             <Col>
-//                                 <Button size='m' variant='primary' disabled={!this.state.selected_service} onClick={this.createServiceReq}>Submit</Button>
-//                             </Col>
-//                         </FormGroup>
-//                     </Form>
-//                     <Form >
-//                         <FormGroup  row>
-//                             <Label md={2}><b>Have a Complaint?</b></Label>
-//                             <Col md={5} >
-//                                 <Input rows="2" type="textarea" value={this.state.complaint} placeholder="type your complaint here" onChange={this.handleComplaint}/>
-//                             </Col>
-//                             <Col>
-//                                 <Button size='m' variant='primary' disabled={!this.state.complaint}>Submit</Button>
-//                             </Col>
-//                         </FormGroup>
-//                     </Form>
-//                     <Link to='/guest/contact'>
-//                         Contact Helpline?
-//                     </Link>
-           
-//                 </div>
-//             </div>
-//         );
-//     }
-// }
 
 export default Guest;
