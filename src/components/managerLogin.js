@@ -8,6 +8,9 @@ import {
 import "../App.css";
 import { auth } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
+import { getDocs } from "firebase/firestore";
+import { MANAGER_EMAIL } from "../assets/statusValues";
+// import { getDocs, doc, addDoc, collection, query, where, onSnapshot, updateDoc } from "firebase/firestore";
 export let managerEmail = "";
 
 function ManagerLogin() {
@@ -23,16 +26,22 @@ function ManagerLogin() {
 
 
   const login = async () => {
-    try {
-      const user = await signInWithEmailAndPassword(
-        auth,
-        loginEmail,
-        loginPassword
-      );
-      console.log(user);
-      navigate("/manager");
-    } catch (error) {
-      console.log(error.message);
+    if(loginEmail!==MANAGER_EMAIL){
+      window.alert("please login through your portal");
+      navigate("/");  
+    }
+    else{
+      try {
+        const user = await signInWithEmailAndPassword(
+          auth,
+          loginEmail,
+          loginPassword
+        );
+        console.log(user);
+        navigate("/manager");
+      } catch (error) {
+        console.log(error.message);
+      }
     }
   };
 

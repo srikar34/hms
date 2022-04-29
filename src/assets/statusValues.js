@@ -31,3 +31,5 @@ export const SERVICES = {
     HOUSE_KEEPING : "HOUSE KEEPING",
     RESTAURANT : "RESTAURANT"
 };
+
+export const MANAGER_EMAIL = "manager.nostalgia@gmail.com";

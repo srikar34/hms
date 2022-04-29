@@ -188,8 +188,9 @@ function Guest() {
     }
 
     const onComplaint = () => {
+        const id = Math.floor(Math.random()*10000);
         const obj = {
-            complaint_id:++maxComplaintId,
+            complaint_id: id,
             description:complaint, 
             from_email:JSON.parse(localStorage.getItem('guest')).email, 
             from_room:JSON.parse(localStorage.getItem('guest')).roomNo,
@@ -203,12 +204,13 @@ function Guest() {
     }
 
     const onService = () => {
+        const id = Math.floor(Math.random()*10000);
         const obj = {
             description:selected_service,
              from_room:JSON.parse(localStorage.getItem('guest')).roomNo, 
              guest_email:JSON.parse(localStorage.getItem('guest')).email, 
              request_from:JSON.parse(localStorage.getItem('guest')).name, 
-             service_id:++maxServiceId, 
+             service_id: id, 
              status : SERVICE_STATUS.REQUESTED
         }
         console.log(obj);

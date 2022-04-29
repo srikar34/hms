@@ -17,9 +17,15 @@ import {
     onAuthStateChanged,
     signOut,
   } from "firebase/auth";
+  import { getAuth, updatePassword } from "firebase/auth";
+
 
 function GuestProfile () {
     const navigate = useNavigate();
+    const [changePassword,setChangePassword] = useState(false);
+    const [newPassword, setNewPassword] = useState(null);
+    const Auth = getAuth();
+    const user = Auth.currentUser;
 
     const getName = () => {
         if(localStorage.getItem('guest')){
@@ -70,6 +76,19 @@ function GuestProfile () {
                         <Label id="email" md={2}><b>Email ID</b></Label>
                         <Col md={3}>
                             <Input disabled value={getEmail()}/>
+                        </Col>
+                    </FormGroup>
+                    <FormGroup row >
+                        <Col>
+                            <Button disabled={changePassword} onClick={() => setChangePassword(true)}>Change Password</Button>
+                        </Col>
+
+                        <Col>
+                            <Input onChange={(e) => setNewPassword(e.target.value)} hidden={!changePassword} disabled={!changePassword} value={newPassword} placeholder="enter new password"/>
+                        </Col>
+
+                        <Col>
+                            <Button hidden={!changePassword}  disabled={!newPassword} onClick={() => updatePassword(user,newPassword)}>Update Password</Button>
                         </Col>
                     </FormGroup>
                 </Form>

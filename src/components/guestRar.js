@@ -55,7 +55,7 @@ function GuestRar () {
                                 <Input value = {feedback} type="textarea" rows="6" placeholder="type your feedback here" onChange = {handleFeedback}/>
                             </Col>
                         </FormGroup> 
-                        <Button size='m' variant='primary' className="floatright" onClick = {createRating} >submit</Button>
+                        <Button size='m' variant='primary' className="floatright" disabled={!feedback || !rating} onClick = {createRating} >submit</Button>
                     </div>
                 </div>
             </div>

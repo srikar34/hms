@@ -6,8 +6,13 @@ import { FormGroup,Label,Col,Input,Form } from "reactstrap";
 import ManagerPortalHeader from './managerPortalHeader';
 import { useState } from 'react';
 import { addDoc, collection } from 'firebase/firestore';
-import { db } from '../firebase-config';
-
+import { db, auth } from '../firebase-config';
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut,
+  } from "firebase/auth";
 
 function Rooms(){
 //class Rooms extends Component {
@@ -17,19 +22,42 @@ function Rooms(){
     const [noOfGuests,setGuests] = useState(null);
     const [bill,setBill] = useState(null);
     const [noOfDays,setDays] = useState(null);
+    // const [registerEmail, setRegisterEmail] = useState("");
+    // const [registerPassword, setRegisterPassword] = useState("");
 
     const usersCollectionRef = collection(db, "users");
     const roomsCollectionRef = collection(db, "roomrecord");
+    const billCollectionRef = collection(db,"billrecord");
     const createNewGuest = async() => {
-        await addDoc(usersCollectionRef, {email_id: email, name:name, no_of_guests:noOfGuests, room_number:roomNo});
+        await addDoc(usersCollectionRef, {email_id: email, name:name, no_of_guests:noOfGuests, room_number:Number(roomNo)});
     }
     const createNewRoomRecord = async() => {
-        await addDoc(roomsCollectionRef, {email_id: email, name:name, num_guests:noOfGuests, room_number:roomNo, status:"Occupied"});
+        await addDoc(roomsCollectionRef, {email_id: email, name:name, num_guests:noOfGuests, room_number:Number(roomNo), status:"Occupied"});
+    }
+    const createNewBillRecord = async() => {
+        await addDoc(billCollectionRef, {room_number : Number(roomNo) , due : Number(bill)});
     }
     const addNewGuest = () => {
+
+        register();
         createNewGuest();
         createNewRoomRecord();
+        createNewBillRecord();
     }
+
+    const register = async () => {
+        const pwd = "12345678";
+        try {
+          const user = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            pwd
+          );
+          console.log(user);
+        } catch (error) {
+          console.log(error.message);
+        }
+      };
 
 
         return(
