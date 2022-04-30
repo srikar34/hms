@@ -60,7 +60,7 @@ function UpdateRoomStatus (){
 
     const updateRoomRecord = async () => {
         const Doc = doc(db, "roomrecord", roomrecord.id);
-        const newfields = {status: newstatus, email_id: null, name:null, num_guests:null};
+        const newfields = {status: newstatus, email_id: null, name:null, no_of_guests:null};
         await updateDoc(Doc, newfields);
         // reset();
         window.location.reload();

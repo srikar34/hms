@@ -28,7 +28,7 @@ function ManagerPortalHeader(){
             localStorage.setItem('manager',JSON.stringify({
                 name : temp.name,
                 email : temp.email_id,
-                emp_id: temp.employee_id,
+                emp_id: temp.emp_id,
                 ph_no: temp.phone_number
             }));
             console.log(localStorage.getItem('manager'))

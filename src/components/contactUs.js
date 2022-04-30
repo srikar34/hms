@@ -7,8 +7,8 @@ class ContactUs extends Component{
         return(
             <div>
                 <GuestPortalHeader />
-                <div>You can email us at {EMAIL}</div>
-                <div>You can call us at {MOBILE}</div>
+                <div><b>You can email us at <a href="mailto : support.hotelnostalgia@gmail.com">support.hotelnostalgia@gmail.com</a> </b></div>
+                <div><b>You can call us at <a href="tel:9848022335">9848022335</a></b></div>
             </div>
         );
     }

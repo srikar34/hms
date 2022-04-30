@@ -45,7 +45,7 @@ function CheckAllRoomDetails() {
                         <th>{roominfom.room_number}</th>
                         <th>{roominfom.name}</th>
                         <th>{roominfom.email_id}</th>
-                        <th>{roominfom.num_guests}</th>
+                        <th>{roominfom.no_of_guests}</th>
                         <th>{roominfom.status}</th>
                         </tr>
                 ))}
